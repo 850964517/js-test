@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象的基础2.2</title>
+	<script>
+	  //对象时一系列属性的集合
+	  //创建一个新的Object对象,存放在obj变量中
+	  /*
+	  var obj=new Object();
+	  //设置对象的属性
+	  obj.val=5;
+	  //给对象添加方法
+	  obj.sayHello=function(){
+	  	  console.log("hello world");
+	  }
+	  */
+	  //创建对象简写形式
+	  /*var obj={
+	  	val:5,
+	  	sayHello:function(){
+	  		console.log("hello world");
+	  	}
+	  };*/
+	  //在其他面向对象的语言中需要实例化某个具体的类,在js中不需要这样
+	  //简单对象的创建和使用
+	  /*
+	  function User(name){
+          this.name=name;
+	  }
+	  console.log(User.prototype);
+	  var me=new User("My Name");
+	  //constructor属性会指向对象的构造器
+	  console.log(me.constructor==User);//true constructor属性会指向对象的构造器
+	  //函数在定义时候都有默认有一个prototype属性,通过new运算符创建的实例时候prototype属性就没有了
+	  console.log(User.prototype);//User{}
+	  //在使用对象实例的constructor会指向这个类的构造器
+
+	  //调用函数
+	  User("Test");
+	  //因为这里的this上下文对象未曾设定,所以会默认指向改函数的运行环境,也就是window
+	  console.log(this.name);
+	  console.log(window.name=="Test");//true
+	  //constructor属性，这一属性在每个对象中都存在,并一直指向创建它的函数。
+	  */
+     
+     //使用constructor属性
+     /*
+     function User(){
+         this.name="张三";
+         this.age=23;
+         this.job="前端工程师";
+     };
+     //创建一个对象的实例
+     var me=new User();
+     //创建一个新的User对象(用前一个对象的constructor引用来创建)
+     var you=new me.constructor();
+     console.log(me);
+     console.log(you);
+     console.log(me.constructor==you.constructor);//true 
+     //发现这两个对象的constructor实质上是一样的
+     */
+
+      
+     //js中的公共方法 
+     //想要再每个实例中都可以使用公共方法,必须使用prototype的属性
+     /*
+     function User(name,age){
+         this.name=name;
+         this.age=age;
+     }
+     //将一个新的函数添加到此对象的prototype对象中
+     User.prototype.getName=function(){
+     	 console.log(this);//这里的this都会指向创建实例后的user对象
+     	return this.name;
+     }
+     //给prototype对象再添加一个函数
+     //这里的上下文是实例化后的的对象
+     User.prototype.getAge=function(){
+     	 console.log(this);//这里的this都会指向创建实例后的user对象
+     	 return this.age;
+     }
+
+     //实例化一个新的User对象
+     var user=new User("Bob","23");
+
+     console.log(user.getName()=="Bob");//true
+     console.log(user.getAge()==23);//true
+     */
+
+     //js中的私有方法
+     //私有方法和私有变量只允许其他的私有方法和私有变量访问
+     //只能用构造函数访问私有方法
+
+      //创建一个教室对象
+     /*function Classroom(students,teacher){
+     	//用于显示班上所有学生的私有方法
+         function disp(){
+         	console.log(students.join(",")+","+teacher);
+         }
+         //添加公共属性
+         this.students=students;
+         this.teacher=teacher;
+         //调用私有方法,disp方法是私有方法只能在Calssroom中调用
+         disp();
+         //将disp方法赋给公共变量dis
+         this.dis=disp;
+         console.log(this);
+     }
+
+     //创建一个新对象
+     //通过new运算符创建的类的实例
+     var clasrom=new Classroom(["John","Bob"],"Mr.Smith");
+     //在这里想调用disp方法会报错,因为它不是该对象的公共属性
+     // clasrom.disp();//clasrom.disp is not a function
+     clasrom.dis();//这里就可以成功调用到disp方法了
+
+      //在js中私有变量和方法都不加this,加this的话都表示公共变量和方法
+      
+      console.log(clasrom.students);
+      console.log(clasrom.teacher);
+      console.log(window.clasrom.students);
+     
+
+      //在不通过new运算符的情况下,直接调用Classroom(),这有时候this会执行运行环境window
+      Classroom(["John","Bob"],"Mr.Smith");
+      */
+
+      //创建特权方法
+      function User(name,age){
+      	   //这里的year是私有变量
+           var year=(new Date()).getFullYear()-age;
+           //创建一个新的特权方法,能够访问year变量,同事自身属于公共可访问
+           this.getYearBorn=function(){
+           	  return year;
+           }
+      }
+      //创建User对象的新实例
+      var user=new User("张三",23);
+      console.log(user.year)//undefined 无法访问对象的私有属性
+      //返回正确的年份
+      console.log(user.getYearBorn());//1992
+      //year是User对象数私有属性,无法访问到,所以必须通过
+      console.log(user.year==null);//true
+      //本质上特权方法是动态生成的,因为他们在运行时才添加到对象中
+      
+
+
+
+
+
+
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

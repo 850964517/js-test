@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组中常用方法练习</title>
+	<script type="text/javascript">
+    var arr=[1,2,3,4,5,6,7,8,9,10];
+    //filter对数组执行一个方法,进行过滤将过滤后的结果用数组返回
+    arr.filter(function(x,index) { //x表示传入数组中的值,index表示数组的索引
+    	return index%3==0 || x>=8;// [1, 4, 7, 8, 9, 10]  返回索引是3的倍数,值大于等于8的
+    });
+    console.log(arr);//[1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 原数组中的值并没有发生变化
+    //reduce方法对数组执行一个方法,将数组中的值两两进行执行函数方法
+    var sum=arr.reduce(function(x,y){
+    	 return x+y;//x如果不传入的话,如果不传入的会默认就是0,如果传入的话,就会以这个
+    },10);
+    console.log(sum);//65
+    
+    var arr2=[3,9,6];
+    //求数组中最大值
+    var max=arr2.reduce(function(x,y){
+        console.log(x+"|"+y);// 3|9 //9|6
+        return x>y?x:y;//9
+    });
+    //reduce对象数组中的元素两两进行函数操作
+    console.log(max);
+    //reduceRight方法对数组执行一个方法,讲数组中的元素亮亮进行函数比较,与reduce不同的是,reduceRight是从右往左边比较
+
+    var maxNum=arr2.reduceRight(function(x,y){
+    	console.log(x+"|"+y);//6|9 9|3  x中传入的第一个参数6,默认从数组中的最后一个元素开始
+        return x>y?x:y;//9 
+    });
+    console.log(maxNum);
+
+  
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

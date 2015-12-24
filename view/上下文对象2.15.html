@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上下文对象2.15</title>
+	<script type="text/javascript">
+         //在js中上下文对象是通过this变量体现的,这个变量永远执行当前代码所处的对象中
+         //创建一个对象
+         /*
+         var obj={
+         	yes:function(){
+                this.val=true;
+         	},
+         	no:function(){
+         		this.val=false;
+         	}
+         };
+         console.log(obj.val);//undefined 发现obj中并没有定义这个val这个属性
+         //执行yes方法
+         obj.yes();
+         //执行yes函数后,就会创建val变量
+         console.log(obj.val);//true 
+         //执行no方法
+         obj.no();
+         console.log(obj.val);//false
+         //执行no方法后,val变量被修改成false
+         //把obj.no指向window
+         window.no=obj.no;
+         console.log(no);//false
+         window.no();
+         console.log(obj.val);//false 发现执行window.no后,obj.val的值也被改变了
+         */
+
+        /* function changeColor(color){
+         	console.log("'"+color+"'");
+         	this.style.backgroundColor="'"+color+"'";
+         }
+         //如果在window对象中调用此函数会失败,因为window对象没有style属性
+         //changeColor("red"); 会报错color  of undefined
+         //找出ID为main的DOM
+         var main=document.getElementById("main");
+         //使用call方法讲main的颜色设置微红色,call方法将上下文对象设置微第一个参数
+         // changeColor.call(main,"red");
+         //设置body颜色
+         function setBodyColor(){
+         	//apply方法将上下文对象设置为第一个参数指定的body元素
+         	changeColor.apply(document.body,arguments);
+         }
+         setBodyColor("black");*/
+
+
+	</script>
+</head>
+<body>
+	  <div id="main">
+	  	 id为main
+	  </div>
+</body>
+</html>

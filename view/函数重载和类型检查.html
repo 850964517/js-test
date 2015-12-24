@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数重载和类型检查</title>
+	<script type="text/javascript">
+     //在js中要像实现函数的重载必须通过两个判断:判断参数数量和参数的类型
+     //创建一个发送短信的函数
+     /*function sendMessage(msg,obj){
+     	//判读参数个数,调用函数
+     	if (arguments.length==2) {
+     		obj.handleMsg(msg);
+     	}
+     	else
+     		console.log(msg);
+     }
+     //使用一个参数调用这个函数
+     sendMessage("hello world");
+     //调用两个参数的函数
+     sendMessage("How are you",{handleMsg:function(msg){console.log("this  is a custom:"+msg)}});
+     //发送短信
+     var obj={
+     	handleMsg:function(msg){
+            console.log("hello "+msg);
+     	}
+     };
+     //调用两个参数的的函数
+     sendMessage("张三",obj);
+
+     //一个接受任意数量参数并将其转换为数组的函数
+     function makeArray(){
+     	var arr=[];
+     	for(var i=0;i<arguments.length;i++){
+           arr.push(arguments[i]);
+     	}
+     	return arr;
+     }
+     var str="abcdefg";
+     console.log(makeArray(str)); //["abcdefg"]
+     console.log(makeArray(1,2,3,4,5));//[1, 2, 3, 4, 5]
+     //虽然maskArray没有提供参数入口,但是我们依然可以通过arguments取到传入的参数
+     */
+
+
+    //类型检测
+    /*
+    function displayerror(msg){
+       if(msg!==undefined){//这里msg!==undefined表示msg!=undefined 和msg!==null
+          console.log(msg);
+       }else{
+       	console.log("msg未定义");
+       }
+    }
+    displayerror();
+    displayerror("hello world");//hello world
+    */
+
+    //类型检测
+    //使用typeof 检测类型
+    var num="123",arr="1,2,3",arr1=[1,2,3,4];
+    if(typeof num=="string"){
+       console.log(parseInt(num));//123
+    }if (typeof arr=="string") {
+    	arr=arr.split(",");
+    	console.log(arr);//["1", "2", "3"]
+    }
+
+    //使用构造函数检测 constructor
+    if (num.constructor==String) {
+    	console.log(num+"是String类型");
+    }
+    if (arr1.constructor=="Array") {
+    	console.log("是数组类型");
+    }
+    //使用getter 和setter
+    /*
+    var obj={
+    	name:'Anle',
+    	age:20,
+    	get getage(){
+    		return this.age;
+    	},
+    	set setage(x){
+    		this.age=x;
+    	}
+    }
+    console.log(obj.getage);
+    obj.setage=23;
+    console.log(obj.getage);
+    */
+
+    //用一个变量类型列表严格检查一个参数列表
+    function strict(types,args){
+       if (types.length!=arrs.length) {
+           throw "Invalid number"
+       }
+    }
+
+  
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

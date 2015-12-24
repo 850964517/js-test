@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型式继承</title>
+	<script type="text/javascript">
+	      //为Person创建一个构造函数
+	       function Person(name){
+	          this.name=name;
+	       }
+	       //给Person对象添加一个新方法 
+	       Person.prototype.getName=function(){
+	       	   return this.name;
+	       }
+	       //创建一个新的User对象
+	       function User(name,password){
+	       	//这里没有支持方便的重载/继承,也就是说，不能调用父类的构造器
+	          this.name=name;
+	          this.password=passowrd;
+	       }
+	       //创建一个user对象继承Person类
+	       User.prototype=new Person();
+
+	       //添加一个新方法到User对象中
+	       User.prototype.getPassword=function(){
+	       	  return this.password;
+	       }
+
+	       //User.prototype=new Person();
+	       //new Person()是使用构造一个新的Person对象,然后把User构造函数原型设置成这个操作结果
+	       //每当new User时,得到新的User对象都会带有Person对象的所有方法和属性,所有新的User对象都会带有person对象的所有方法
+
+           
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

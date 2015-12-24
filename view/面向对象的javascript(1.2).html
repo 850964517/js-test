@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象的javascript</title>
+	<script type="text/javascript">
+	// 'lecture' 类的构造函数
+	// name和teacher作为参数
+    function lecture(name,teacher){
+    	//将参数保存微对象的局部属性
+         this.name=name;
+         this.teacher=teacher;
+    }
+    //lecture类的一个方法,用于生产一条现实信息
+    lecture.prototype.showInfo=function(){
+        return this.teacher+"  is teaching  "+ this.name;
+    };
+    var le=new lecture("张三","李四");
+    console.log(le.showInfo());
+    //Schedule类的构造函数,以课程的数组作为参数
+    function Schedule(lecture){
+        this.lecture=lecture;
+    }
+    Schedule.prototype.showInfo=function(){
+    	var str="";
+    	//遍历每项课程,建立包含他们欣喜的字符串
+    	for(var i=0;i<this.lecture.length;i++){
+           str+=this.lecture[i].showInfo()+" , ";
+    	}
+    	return str;
+    }
+    //创建一个新的Schedule对象,创建lecture对象
+    var mySchedule=new Schedule([
+           new lecture("Gym","Mr.Smith"),
+           new lecture("Math","Mrs.jones"),
+           new lecture("English","TBD")
+    	]);
+    console.log(mySchedule.showInfo());
+    
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

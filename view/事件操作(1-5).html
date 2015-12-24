@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件操作(1.5)</title>
+	<script type="text/javascript">
+      window.onload=function(){
+      	   //获取li元素
+      	 /* var li=document.getElementsByTagName("li");
+      	  //循环li,给li添加事件,这里循环添加事件不利于性能的优化
+      	  for(var i=0;i<li.length;i++){
+             li[i].onmouseover=function(){
+             	this.style.backgroundColor="red";
+             };
+             li[i].onmouseout=function(){
+             	this.style.backgroundColor="white";
+             }
+      	  }*/
+      	  //利用js的事件代理
+        var ul_box=document.getElementById("ul_box");
+        ul_box.addEventListener("mouseover",function(event){
+        	var e=event || window.event,tarElem=e.target || e.srcElement;
+        	if(tarElem.nodeName.toLowerCase()==="li"){
+               tarElem.style.backgroundColor="red";
+        	}
+
+        },false);
+        ul_box.addEventListener("mouseout",function(){
+        	var e=event || window.event,tarElem=e.target || e.srcElement;
+        	if(tarElem.nodeName.toLowerCase()==="li"){
+               tarElem.style.backgroundColor="white";
+        	}
+        });
+
+
+      }
+	</script>
+</head>
+<body>
+	 <h1>操作DOM</h1>
+	<P class="test">这是一个p标签</P>
+	<ul id="ul_box">
+		<li id="everywhere">这是第一个li</li>
+		<li class="test">这是第二个li</li>
+		<li class="test">这是第三个li</li>
+	</ul>
+</body>
+</html>

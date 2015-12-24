@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this练习(2.16)</title>
+	<script type="text/javascript">
+	  //创建对象
+	 /*
+	 var o={
+	  	prop:37,
+	  	f:function(){
+	  		return this.prop;//返回这个对象的prop属性
+	  	}
+	  }
+	  console.log(o.f());//37
+	  //这时候this会指向调用方法的类实例
+
+	  var obj={prop:38};
+	  function independent(){
+	  	  return this.prop;
+	  }
+	  //给obj动态添加属性
+	  obj.f=independent;//将independent方法赋值给o对象上面的一个属性
+	  console.log(obj.f());//38
+	  //如果把一个方法赋值给一个对象的对象,这时候这个方法里德this就会执行这个对象
+	  */
+
+      //创建一个对象
+	  var o={
+	  	f:function(){
+	  		return this.a+this.b;
+	  	}
+	  };
+	  //创建一个对象
+	  var p=Object.create(o);
+	  p.a=1;
+	  p.b=4;
+	  console.log(p);//Object {a: 1, b: 4}
+	  console.log(p.f());
+	  //这里p本来是没有f方法,因为通过Object.create()方法创建的p可以继承o对象，所有也有了o对象的方法
+
+      //创建父类
+	  function Person(){
+	  	 this.name="张三";
+	  	 this.age=23;
+	  	 this.job="前端";
+	  	 this.sayHlloe=function(){
+	  	 	return "我叫:"+this.name+",今年"+this.age+"岁了,我是一名:"+this.job;
+	  	 }
+	  }
+      //创建一个person类的实例
+	  var per=new Person();
+	  //通过Object去创建一个类的实例,这个实例继承Person
+	  var ch=Object.create(per);
+	  //调用属性
+	  console.log(ch.age);
+	  //调用方法
+	  console.log(ch.sayHlloe());//我叫:张三,今年23岁了,我是一名:前端
+	  //成功调用了父类Person中的方法
+
+
+
+
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

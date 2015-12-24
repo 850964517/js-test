@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>使用DOM定位并操作不同的DOM</title>
+    <script type="text/javascript">
+     window.onload=function(){
+     	 //获取文档中所有的li标签
+     	 var li=document.getElementsByTagName("li");
+     	 // 给他们添加边框
+     	 for(var i=0;i<li.length;i++){
+            li[i].style.border="1px solid #ccc";
+     	 }
+
+     	 //删除id为 everywhere的li元素
+     	 var every=document.getElementById("everywhere");
+     	 every.parentNode.removeChild(every);
+     }
+    </script>
+</head>
+
+
+<body>
+    <h1>操作DOM</h1>
+	<P class="test">这是一个p标签</P>
+	<ul>
+		<li id="everywhere">这是第一个li</li>
+		<li class="test">这是第二个li</li>
+		<li class="test">这是第三个li</li>
+	</ul>
+</body>
+</html>

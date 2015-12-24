@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作用域2.13</title>
+	<script type="text/javascript">
+      //设置全局变量 foo
+      /*var foo="test";
+      //if块
+      if (true) {
+      	var foo="new test";
+      	var i=10;
+      }
+      console.log(foo);//new test 
+      console.log(i); //10 说明在if语句块中,不会形成独立作用域
+      console.log(window.foo);//new test 
+      console.log(window.i);//10 //说明声明的全局变量可以通过window对象访问
+      console.log(window.test==test);//true 发现test和window.test是一致的
+
+      console.log(delete foo);//false 通过delete运算符删除变量会返回false
+
+      console.log(delete window.foo);//false
+      */
+
+      //创建局部变量
+      function test(){
+      	var foo="old test";
+      }
+      test();
+      // console.log(foo);//foo is not defined 说明函数test内部的变量foo在函数外面无法访问
+      //创建函数
+      function fooTest(){
+      	 foo="foo test";
+      }
+      fooTest();//调用函数
+      console.log(foo);//foo test发现可以取到
+      console.log(window.foo==="foo test");//true 
+      //如果在方法中没用var声明的变量,在方法调用完毕后会隐式的声明成全局变量
+
+      
+      //js中的作用域	
+      /*for (var i = 0; i < 10; i++) {
+      	console.log(i)
+      }
+      console.log(i);//10 在javascript中for循环中声明的变量不会是块级作用域,隐士的声明成了全局变量
+
+      
+    
+      
+
+      /*function fn(a){
+         var a=20;
+         console.log(a);
+      }*/
+      // fn(10);//20 在js中当传入进来的参数和函数内部声明的变量名一致时,会使用函数内的变量
+
+     /* function fn(a){
+      	console.log(a);
+      	var a=2;
+      	function a(){};
+      	console.log(a);
+      }  
+      fn(1);// function a(){},2*/
+      //因为在js中声明的函数可以被前置调用,在执行fn方法时候,console.log()第一个a时候,会去检测fn中有没有声明a这个函数 
+     
+
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

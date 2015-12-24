@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包2.14</title>
+	<script type="text/javascript">
+      //闭包意味着内层函数可以引用存在于包围它的函数内的变量
+     /*
+     window.onload=function(){
+      	  var obj=document.getElementById("main");
+      	  //修改obj的border样式
+      	  obj.style.border="1px solid red";
+      	  //初始化一个在一秒后执行的回调函数
+      	  setTimeout(function(){
+      	  	obj.style.display="none"
+      	  },1000);
+
+      }
+      function delayedAlert(msg,time){
+           setTimeout(function(){
+           	    alert(msg);
+           },time);
+      }
+      delayedAlert("Welcome",2000);
+      */
+
+      //创建闭包函数,实现数字求和
+      /*
+      function addGenerator(num){
+      	//函数体内在声明一个函数,这样就形成了闭包
+      	return function(toAdd){
+             return num+toAdd;
+      	}
+      }
+      //addFive现在包含一个接受单一参数的函数
+      var addFive=addGenerator(5);//这个时候addGenerator返回的是一个方法,这里5对应的是num参数
+      console.log(addFive);//返回一个方法
+      console.log(addFive(4));//返回相加的结果,4对应的是toAdd参数
+      */
+
+      //闭包可以解决开发过程中留下的全局变量问题,通过匿名自执行函数可以将全局变量包装在类中,防止变量冲突和污染
+
+      //创建匿名自执行函数
+      /*
+      (function(){
+         //创建变量,本来在这里声明的变量应该是全局变量
+         var msg="Thanks for visiting!";
+         console.log(window.msg);//undefined 说明这里的msg不是全局变量
+         console.log(msg);
+         console.log(this);//window 闭包内的this都会指向window对象
+      	//关闭匿名函数并执行
+      })();
+      */
+      // var obj=document.getElementById("main");
+      // var items=["click","keypress"];
+      // for(var i=0;i<items.length;i++){
+      //     (function(i){
+      //     	 var item=items[i];
+      //     	 console.log(i);
+      //     	 obj["on"+item]=function(){
+      //     	 	console.log("Thanks for your"+item);
+      //     	 }
+      //     })(i);
+      // }
+
+   
+
+	</script>
+</head>
+<body>
+	  <div id="main" style="width:200px;height:100px;">
+	  	   asd
+	  </div>
+</body>
+</html>

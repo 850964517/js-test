@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Function类中的call,apply,bind方法</title>
+	<script type="text/javascript">
+	//call方法是Function类中的方法,用来调用一个对象的方法,去改变调用方法中的this指向。调用一个对象的一个方法，以另一个对象替换当前对象
+	//语法格式 call(thisObj,arg) thisObj表示调用方法要this要指向的对象,arg表示传入方法中的参数
+	//利用call实现继承
+	function Person(name,age){
+		this.name=name;
+		this.age=age;
+		this.sayHello=function(){
+			console.log("a"+this.name+this.age);
+		}
+	}
+	//利用call实现继承
+	/*function Child(name,age){
+		
+		Person.call(this,name,age)
+	}
+	*/
+	// 利用apply实现继承
+	function Child(name,age){
+		Person.apply(this,[name,age]);
+	}
+	//实例化一个Person类
+	var person=new Person("张三",23);
+
+	var child=new Child("李四",30);
+	child.sayHello()
+
+    //获取数据类型
+	function getType(parameter){
+		return Object.prototype.toString.call(parameter)
+	}
+	console.log(getType(1));//[object Number]
+	console.log(getType("str"));//[object String]
+	console.log(getType([]));//[object Array]
+	console.log(getType({}));//[object Object]
+	console.log(getType(function(){}));//[object Function]
+    
+    //利用参数去改变方法中的this
+    function add(c,d){
+        return this.a+this.b+c+d;
+    }
+    //创建对象
+    var o={a:1,b:2}
+    //将o对象传递到add方法里面,add方法里面this.a,this.b会指向o对象中的a和b。4和5会被当做add的参数传递进去
+    var result=add.call(o,4,5)// 1+2+4+5
+
+    console.log(result);
+    var resultAdd=add.apply(o,[10,20]);//1+2+10+20
+    console.log(resultAdd);
+
+     //如果在调用call和apply方法时候没有传入thisObj,那么 Global 对象被用作 thisObj。
+
+     var a=10,b=20;
+     //使用call调用add方法,不传递参数
+     var resultG=add.call(null,5,6);
+     console.log(resultG);//10+20+5+6
+     //这时候因为调用add方法时候没有传递给方法中的this,所以方法体中的this会执行window
+
+     //创建一个测试类
+     function testFun(){
+     	this.a=10;
+     	this.b=20;
+     	this.add=function(c,d){
+     		console.log(arguments);
+     		console.log(arguments[0]);
+     		return this.a+this.b+c+d;
+     	}
+     }
+     //创建testFun对象
+     var tFun=new testFun();
+     // console.log(tFun.add.call(o,1,2));//6 1+2+1+2
+     //调用call方法改变了testFun对象中的this指向
+     // console.log(tFun.add.call(null,1,2));//33 10+20+1+2
+     //这时候调用call如果没有传递参数的话,this对象会指向调用方法的函数对象
+     console.log(tFun.add.apply(null,[1,2]));// this会执行testFun 33 1+2+10+20
+
+     console.log(tFun.add.apply(o,[4,5]));//6 1+2+1+2
+
+
+     //javascript中的bind方法,bind方法是ECAMScript5新增方法
+     //bind方法返回值是一个函数
+     var theMethod=function(arg1,arg2){
+     	  console.log(arguments);
+          console.log(arg1);
+          console.log(arg2);
+          console.log(this==obj);
+     }
+     //创建bind方法的参数
+     var obj=new Object();
+     var newMethod=theMethod.bind(obj,5,9);
+     //调用方法
+     newMethod();//true
+     //bind方法可以改变方法体内的this指针,会将修改的this指针的方法当做一个新方法返回
+    theMethod.call(obj,5,9);
+
+    //新建对象,创建一个checkRange
+    var withRank={
+    	minNum:50,
+    	maxNum:100,
+    	checkRange:function(value){
+            return value>=this.minNum && value<=this.maxNum;
+    	}
+    }
+    //调用检测方法
+    console.log(withRank.checkRange(10));//false
+    var testWith={minNum:10,maxNum:20};
+    //利用bind去改变withRankminNum和maxNum的值
+    var newcheckRange=withRank.checkRange.bind(testWith);
+
+    //调用使用后的bind方法
+    console.log(newcheckRange(10));//true
+    console.log(newcheckRange);
+    //&&符号的意义,如果&&符号前面表达式返回false就不会继续往后执行,直接返回false。如果&&两边都返回true，就会返回true
+
+
+
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

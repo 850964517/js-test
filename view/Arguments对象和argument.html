@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Arguments类和argument</title>
+	<script type="text/javascript">
+   //js中的arguments对象用来获取函数在调用时候的参数类,arguments对象不能显示的创建,arguments对象只有函数开始时才可以使用
+   //arguments对象时一个类数组对象(有数组中的length属性,也可以通过索引下标去访问对象的值)
+   function add(arg){
+      for(var i=0;i<arguments.length;i++){
+         console.log(arguments[i]);
+      }
+   }
+   add(1,2,3);//1,2,3
+   //js中的函数,行参和实参个数可以不一致,arguments对象是有对象的实参决定的
+   //在方法体内可以通过arguments[0]下标去访问实参
+   /*
+   function testFun(arg){
+       console.log(arguments[0]);
+   }
+   testFun(2);
+   */
+   //在非严格模式下,可以通过arguments对象去修改实参的值,也可以删除arguments对象中的值,但是不会删除实参
+   /*function testFun(a){
+   	 // 'use strict'
+   	 arguments[0]=20;
+   	 console.log(a);
+   	 delete arguments[0];
+   	 console.log(a);
+   	 console.log(arguments[0]);
+   }
+   testFun(10);//20
+   //发现实参a被修改成了20,arguments[0]对象被删除了
+   */
+
+   //在严格模式下,不能通过arguments对象去修改实参的值,也不能使用delete去删除对象的值,这样会报错
+   
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

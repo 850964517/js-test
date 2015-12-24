@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象的javascript(1.1)</title>
+	<script type="text/javascript">
+	  //创建一个obj对象
+	  /*
+	  var obj=new Object({x:1});
+	  //创建一个objRef对象
+	  var objRef={
+	  	onePropetype:false //设置onePropetype为false
+	  }
+	  //objRef现在是另一个对象的引用
+	  var objRef=obj;
+	  //修改原对象的一个属性
+	  obj.onePropetype=true;
+	  console.log(obj.onePropetype);//true
+	  console.log(objRef.onePropetype);//false 改变的是obj.onePropetype属性发现objRef.onePropetype的属性也跟着改变了,因为objRef和obj对象是引用
+	  console.log(obj===objRef);//true 因为他们两个对象是引用的,指向的是同一个地址
+
+	  //创建一个自修改对象的
+	  var items=new Array("one","two","three");
+	  //创建数组的一个新数组
+	  var itemsRegf=[];
+	  console.log(itemsRegf.length);//0
+	  itemsRegf=items; //创建引用
+	  console.log(itemsRegf.length);//3 itemsRegf对象的数据和items一样
+	  console.log(itemsRegf);//["one", "two", "three"]
+	  //向items添加数据
+	  items.push("four");
+	  console.log(items[3]);//four
+	  console.log(itemsRegf[3]);//four  发现itemsRegf中也有了four这个
+	  */
+
+      //创建一个items的字符串对象
+	  var item="test";
+	  //创建itemRef对象 指向同一个字符串对象
+	  var itemRef=item;
+	  console.log(item);//test
+	  item+="ing";//修改item的值
+	  console.log(item);//testing
+	  console.log(itemRef);//test 发现修改了item的值,并没有改变itemRef的值
+	  //字符串是简单数据类型, 所以不会按照引用传递
+	  console.log(item!=itemRef);//true
+
+
+
+
+
+
+
+
+	</script>
+</head>
+<body>
+	 
+</body>
+</html>

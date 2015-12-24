@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常见方法测试1.1</title>
+	<script type="text/javascript">
+     //判断一个字符串中是否包含另一个字符串
+     function contains(target,it){
+        return target.indexOf(it) !=-1;
+     }
+     //判断字符串是否包含另外一个字符串
+     /*
+     function isContains(str,it){
+     	var reg=new RegExp("\b"+it+"\b","g");
+        return reg.test(str);
+     }
+     */
+
+     //字符串重复
+     function repeatString(str,n){
+         return Array(n+1).join(str);
+     }
+     //字符串重复
+     function repeat(str,n){
+         return Array.prototype.join.call({
+         	length:n+1
+         },str);;
+     }
+     var str=" 前 端"; 
+     // console.log(isContains(str," 前 "));//true
+     // console.log(isContains(str,"判"))//false
+     //重复字符串
+     console.log(repeat("a",3));
+     console.log(repeat("hi",3));
+
+     //truncate 对字符串进行截断处理,当超过限定长度,默认加三个点号
+     /*function truncate(target,length,truncation){
+            length=length || 30;
+            truncation=truncation ===void(0) ?'...':truncation;
+            return target.length>length?target.slice(0,length=truncation.length)+truncation：String(target);
+     }*/
+
+    //判断是否是数组
+    /*
+    Array.isArray=function(arr){
+        return  arr instanceof Array;
+    }
+    console.log(Array.isArray(arr));//true isArray是一个静态方法
+    console.log(Array.isArray([]));//true
+    console.log(Array.isArray("str"));//false
+    Array.isArray=function(str){
+      return Object.prototype.toString.apply(str)==='[object Array]';
+    }
+    */
+    //这种方法不太严谨,如果动态的改变了对象的constructor的话,容易导致错误
+    Array.isArray=function(str){
+      return  str.constructor===Array;
+    }
+    var arr=[1,2,3];
+    console.log(Array.isArray(arr));//true
+    console.log(Array.isArray("str"));//false
+    var str="这不是一个数组";
+    console.log(typeof str);//string
+    str.prototype.constructor=new Array();//动态修改str的constructor
+    console.log(str.constructor);
+    console.log(Array.isArray(str));
+
+
+    </script>
+</head>
+<body>
+	
+</body>
+</html>

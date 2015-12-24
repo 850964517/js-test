@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>通过Object.ceeate方法实现类继承</title>
+	<script type="text/javascript">
+	//通过Object.create方法可以实现类的继承,但是create方法中必须传入要继承的类的实例
+
+	//创建一个父类
+	function Person(){
+		this.name="张三";
+		this.age=23;
+		this.job="前端工程师";
+		this.sayHello=function(){
+			 return "我叫:"+this.name+",今年:"+this.age;
+		}
+	}
+
+	//创建类的实例
+	/*var per=new Person();
+
+	//用Object.create创建类的实例
+	var obj=Object.create(per);
+
+    //调用父类属性
+	console.log(obj.name);//张三
+	console.log(typeof obj);//object
+	console.log(obj.constructor);//会指向Person的构造器,说明obj是继承Person
+	//用instanceof检测obj是否继承Person
+	console.log(obj instanceof Person);//true
+	*/
+
+	//在使用Object.create方法时候,传入的必须是一个对象的实例
+
+	var objTest=Object.create(Person);
+	console.log(objTest);//是一个空对象
+	console.log(objTest instanceof Person);//false
+	console.log(objTest.name);//Person 会打印出这个方法的名称
+	console.log(objTest.age);//undefined
+
+
+	var  obj={
+		name:"李四",
+		age:23,
+		job:'前端工程师',
+		sayHello:function(){
+		   return "我是:"+this.name+",今年:"+this.age+",我是一名:"+this.job;
+		}
+	}
+
+	//创建一个类，继承obj
+    var obj2=Object.create(obj);
+    console.log(obj2.name);//李四
+    console.log(obj2.sayHello());//我是:李四,今年:23,我是一名:前端工程师
+
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
+
+<!-- r495964207 -->
+<!-- chentianran54321 -->

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Object.create与new Function区别</title>
+	<script type="text/javascript">
+     'use strict'
+     //使用Object.create()创建对象
+     /*
+     var test={val:1};
+     //创建一个testA,继承test
+     var testA=Object.create(test);
+
+     console.log(testA.val);//可以调用testA中的属性
+
+     //修改testA中的属性
+     testA.val=2;
+     console.log(testA.val);//2
+     //删除testA.val,发现删除testA.val属性后
+     console.log(testA.val);//1
+     console.log(test.val);//1
+     */
+
+     //Object.create()是ECAMScript提出的一种新的对象创建方式,第一个参数是要几次的原型,如果不是一个子函数,第二个参数是对象的属性描述,这个参数是可以选的。
+
+     //创建一个car对象
+     /*
+     function Car(desc){
+     	this.desc=desc;
+     	this.color="red";
+     }
+     //给car添加方法
+     Car.prototype={
+     	getInfo:function(){
+     		return 'A'+this.color+','+this.desc+'.';
+     	}
+     }
+     //创建一个新对象newcar
+     var newcar=Object.create(Car.prototype);
+     //给newcar添加属性
+     newcar.color="blue";
+     newcar.desc="asc";
+
+     console.log(newcar.getInfo())
+     */
+
+     /*
+     function foo(){
+     	this.name="张三";
+     	this.age=23;
+     	this.job="前端";
+     	this.sayHello=function(){
+     		 console.log("我叫:"+this.name+",hello world");
+     	}
+     }
+     foo.prototype.sayHello=function(){
+     	console.log("我叫:"+this.name+",hello world");
+     }
+     //创建一个对象 
+     var pr=Object.create(foo.prototype);
+     console.log(pr.sayHello());
+     //想要调用foo上面的方法,必须将方法挂在prototype上面
+     console.log(pr.name);
+     */
+
+     var a=-10;
+     if(a>0) 
+       console.log("a大于0");
+     if(a<0)
+          console.log("a小于0");
+
+     /*
+     var enum="保留关键字";
+     console.log(enum);// Unexpected reserved word
+     */
+
+     var abstract="abstract不是保留关键字";
+     console.log(abstract);//abstract不是保留关键字
+
+
+
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
