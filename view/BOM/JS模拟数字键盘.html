@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 <meta name="viewport" content="width=320,maximum-scale=2,minimum-scale=1,user-scalable=no">
+	<title>JS模拟数字键盘</title>
+	<style>
+	    *{
+	    	margin: 0;
+	    }
+	    body{
+	    	max-width: 600px;
+	    	margin: 0 auto;
+	    }
+        #inputKey{
+        	display:inline-block;
+        	width: 90%;
+        	height: 35px;
+        	font: 14px/35px "黑体";
+        	border: 1px solid #ccc;
+        	border-radius:3px;
+        	margin-left: 5%;
+        	margin-right: 5%;
+        	margin-top: 20px;
+        	padding-left: 5px;
+
+        }
+        .keybox{
+        	width: 100%;
+             max-width: 600px;
+            margin: 0 auto;
+            position:fixed;
+            bottom: -220px;
+            left:-1px;
+            right:0;
+            z-index: 10;
+        }
+        .complete_btn{
+        	display: inline-block;
+        	*display: block;
+        	width: 60px;
+            height: 28px;
+        	background-color: #1FB9FF;
+        	border-radius:3px;
+        	color: #fff;
+        	text-align: center;
+        	font: 600 14px/28px "黑体";
+        	float: right;
+        	margin-right: 10px;
+        	margin-bottom: 10px;
+        	cursor:pointer;
+        }
+        .keycontent{
+        	width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        	height: 100%;
+        	border-top:1px solid #ddd;
+        }
+        .keycontent tr{
+        	width: 100%;
+        	height: 40px;
+        	display: table-row;
+            vertical-align: inherit;
+            border-color: inherit;
+        }
+        .keycontent tr td{
+             width: 33.333333%;
+             text-align: center;
+             font: 16px/40px "黑体";
+             border: 1px solid #ddd;
+             border-right: 0;
+             border-top: 0;
+             border-collapse: collapse;
+             border-spacing: 0;
+             padding: 0;
+             cursor: pointer;
+        }
+        .keycontent tr td:first-child{
+        	border-left: 0;
+        }
+        .keycontent tr td:last-child{
+        	border-right: 0;
+        }
+        .keycontent tr td.text{
+          	background-color: #D3D9DF;
+        }
+        .keycontent tr:last-child td:first-child,.keycontent tr:last-child td:last-child{
+          	background-color: #D3D9DF;
+          	 position: relative;
+             top: -2px;
+             left: 2px; 
+        }
+	</style>
+	<script type="text/javascript">
+        window.onload=function(){
+         	//获取文本框,和键盘框,完成按钮,声明一个数组用来存放用户输入的值
+         	var inputElem=document.getElementById("inputKey"),keyBox=document.getElementById("keybox"),complete_btn=document.getElementById("complete_btn"),keycontent=document.getElementById("keycontent"),inputVal=[];;
+         	//文本框焦点事件
+         	inputElem.onclick=function(){
+         		 keyBox.style.transition="bottom 0.6s ease";
+                 keyBox.style.bottom="-3px";
+         	};
+         	complete_btn.onclick=function(){
+         		 keyBox.style.transition="bottom 0.6s ease";
+                 keyBox.style.bottom="-220px";
+         	};
+         	//给键盘添加点击事件
+         	keycontent.addEventListener("click",function(event){
+               var target=event.target || event.srcElement;
+               if(target.nodeName.toLowerCase()=="td"){
+               	   target.innerHTML=="删除" ? inputVal.pop():inputVal.push(target.innerHTML);
+               }
+                inputElem.innerHTML=inputVal.join("");
+         	},false);
+         }
+	</script>
+</head>
+<body> 
+	 <div  id="inputKey">请输入提现金额</div>
+	 <div class="keybox" id="keybox">
+		   <span class="complete_btn" id="complete_btn">完成</span>
+		   <table class="keycontent" id="keycontent">
+		   	<tr>
+		   		<td>1</td>
+		   		<td>2</td>
+		   		<td>3</td>
+		   		
+		   	</tr>
+		   	<tr>
+		   		<td>4</td>
+		   		<td>5</td>
+		   		<td>6</td>
+		   	</tr>
+		   	<tr>
+		   		<td>7</td>
+		   		<td>8</td>
+		   		<td>9</td>
+		   	</tr>
+		   	<tr>
+		   		<td>.</td>
+		   		<td>0</td>
+		   		<td>删除</td>
+		   	</tr>
+		   </table>
+
+	 </div>
+</body>
+</html>

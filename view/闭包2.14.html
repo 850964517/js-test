@@ -63,7 +63,19 @@
       //     })(i);
       // }
 
-   
+
+      //建一个简单的闭包
+      
+      function A(){
+         function B(){
+            console.log("Hello Closure!");
+         }
+         return B;
+      }
+
+      var c=A();//在调用A时候会返回B函数
+      c();//调用c时候会调用B函数
+      //在A中返回B（在A中返回B的引用）,执行A(),把A的返回结果赋值给变量 c
 
 	</script>
 </head>

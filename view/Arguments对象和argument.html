@@ -6,7 +6,7 @@
 	<script type="text/javascript">
    //js中的arguments对象用来获取函数在调用时候的参数类,arguments对象不能显示的创建,arguments对象只有函数开始时才可以使用
    //arguments对象时一个类数组对象(有数组中的length属性,也可以通过索引下标去访问对象的值)
-   function add(arg){
+   /*function add(arg){
       for(var i=0;i<arguments.length;i++){
          console.log(arguments[i]);
       }
@@ -34,7 +34,62 @@
    */
 
    //在严格模式下,不能通过arguments对象去修改实参的值,也不能使用delete去删除对象的值,这样会报错
+   function testFun(arg){
+      'use strict'
+      arguments[0]=20;
+      console.log(arg);
+      delete arguments[0];
+      console.log(arguments[0]);
+      console.log(arguments.length);
+
+   }
+   testFun(30,40);//30 ,2
+   //发现使用了严格模式的话不能修改arguments[0]对象中的值,即使设置了arguments中的值,也不会修改到其中的值
    
+   //通过arguments.length可以获取传递进来实参的个数
+
+   //arguments.callee属性是用来执行对当前函数的引用,在函数体内引用函数本身。callee属性应用当前的函数
+   /*
+   var i=0;
+   function add(){
+   	  console.log(i++);
+   	  arguments.callee();//调用arguments.callee方法后会在函数体内调用方法本身,这样容易形成递归
+   }
+   add();
+   //利用arguments.callee方法实现递归,求一个数的阶乘
+    function testCallee(n){
+      if (n==0) {
+      	return 1;
+      }
+      return n*arguments.callee(n-1);
+   }
+   console.log(testCallee(5));//120
+
+   //利用js方法实现递归
+   function factorial(n){
+      if(n==0){
+        return 1;
+      }
+      return n*factorial(n-1);
+   }
+   console.log(factorial(5));//120
+    */
+    
+    //检查行参和实参是否相等
+    function check(args){
+    	try{
+	    	 var actual=args.length;
+	         var expected=args.callee.length;
+	         if(actual!=expected){
+	             throw new Error();
+	         }
+    	}catch(ex){
+            console.log(ex.Error);
+    	}
+    }
+    check(1,2,3);
+    
+
 
 	</script>
 </head>

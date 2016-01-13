@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的继承(3.13)</title>
+	<script type="text/javascript">
+    //创建一个Person类
+    function Person(name,age){
+       this.name=name;
+       this.age=age;
+    }
+    //给Person添加方法
+    Person.prototype.hi=function(){
+    	console.log("Hi,my name is "+this.name+",Im"+this.age+"years old now");
+    }
+    //给Person添加属性
+    Person.prototype.legs_num=2;
+    Person.prototype.arms_num=2;
+    //给Person添加方法
+    Person.prototype.walk=function(){
+    	console.log(this.name+" is walking....");
+    }
+    //创建一个student类,用来继承person类
+    function Student(name,age,className){
+    	//利用call实现继承,将Person中的this指向Student
+       Person.call(this,name,age);
+       this.className=className;
+    }
+    //让子类继承父类
+    Student.prototype=Object.create(Person.prototype);
+    //为了给子类添加方法的同时,又不会给父类添加方法,将Student类的构造器动态的修改(因为通过Object.create方法创建的新对象,对象的prototype属性会执行父类,也就是子类的构造器指向了父类)
+    console.log(Student.prototype.constructor);//这时候Stundet的构造器会执行Person类,如果给student类添加方法的话,也会给Person类上面添加
+    Student.prototype.constructor=Student;//通过设置Student的构造器指向了Student
+
+    //给Student添加方法
+    //覆盖父类hi方法
+    Student.prototype.hi=function(){
+    	console.log("Hi,my name is "+this.name+",Im "+this.age+" year old now,and from "+this.className+"_");
+    }
+   
+    //给子类添加方法
+    Student.prototype.learn=function(subject){
+    	console.log(this.name+" is learning "+subject+' at '+this.className);
+    };
+     // console.log(Student.prototype);
+     // console.log(Person.prototype);
+
+   // console.log(Person());
+   //console.log(Person.length);//2  length表示函数行参的个数
+   //console.log(Student.prototype);
+
+   var anle=new Student("anle",23,'Class 3,Grade 2');
+   anle.hi();//Hi,my name is anle,Im 27 year old now,and from Class 3,Grade 2_ 根据原型链继承机制,会调用Student类中的hi方法
+   console.log(anle.legs_num);//2
+   console.log(anle.arms_num);
+   //调用父类walk方法
+   anle.walk();
+   //调用学习方法
+   anle.learn("English");
+
+
+  //使用Object.create创建一个对象的增强对象
+   var obj=Object.create(null,{
+   	   size:{
+   	   	 value:"large",
+   	   	 enumerable:true
+   	   },
+   	   shape:{
+   	   	value:"round",
+   	   	enumerable:true
+   	   }
+   });
+   console.log(obj);
+
+
+
+
+
+
+
+  
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

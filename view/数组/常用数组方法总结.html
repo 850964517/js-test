@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用数组方法</title>
+	<script type="text/javascript">
+     //1.数组去重
+     //利用数组indexOf方法,实现数组去重复
+    /* 
+	//方法一
+    function unique(arr){
+	     	 //声明用于数组，用于存放数据
+	         var result=[];
+	         for(var i=0;i<arr.length;i++){
+	            //如果数组中没有有该元素,就添加
+	            if(result.indexOf(arr[i])==-1) result.push(arr[i]);
+	         }
+	         //返回过滤后的数组
+	         return result;
+	     }
+     */
+     /* 
+     var arr=[1,2,3,5,1,6,3];
+     var arr=["张三","李四","王五","张三","李四","王五"];
+     console.log(unique(arr));//[1, 2, 3, 5, 6]
+     console.log(unique(arr));//["张三", "李四", "王五"]
+     */
+      //方法二
+     //利用hash表(实现数组去重复),可能会出现字符串和数字一样的话出错,如var a=[1, 2, 3, 4, '3', 5],就会返回[1,2,3]
+     /*function unique(arr){
+     	 //声明一个hsah对象用来存放循环时候的数据,result数组用来返回过滤后的数组
+         var hash={},result=[];
+         for(var i=0;i<arr.length;i++){
+               if (!hash[arr[i]]) {//判断hash对象是否已经存在循环数据,每添加一次就把已经添加的key设置成true
+               	    hash[arr[i]]=true;
+               	   result.push(arr[i]);
+               }
+         }
+         console.log(hash);// 是一个object对象Object {1: true, 2: true, 张三: true, 李四: true, 王五: true}
+         //把数组中不重复的值当做对象的key值
+         //其实现原理,就是把已经添加的数组元素当做hash对象的key,并把hash中的对应key值设置成true
+         return result;
+     }
+     //测试数据
+     var arr=["张三","李四","王五",1,2,"张三","李四","王五"];
+     */
+
+     //排序后比较相邻,如果一样就放弃，否则加入到result。
+     //方法三
+     /*
+     function unique(arr){
+         arr.sort();//把数组进行排序
+         //判断数组是否为空
+         if(arr.length==0) return;
+         var result=[arr[0]];
+         for(var i=1;i<arr.length;i++){
+              //判断循环当前数据和上一个是否相同
+              if (arr[i]!=arr[i-1]) {
+              	  result.push(arr[i]);
+              }
+         }
+         //返回过滤后的数组
+         return result;
+     }
+     var arr=["张三","李四","王五",1,2,"张三","李四","王五"];
+     console.log(unique(arr));
+     */
+
+     //方法四
+    /* function unique(arr){
+         if(arr.length==0) return;
+         var result=[arr[0]],isRepeat;
+         for(var i=0;j=arr.length;i<j;i++){
+            isRepeat=false;
+            for (var k=0;h<result.length;k<h;k++) {
+                 if(result[k]===arr[i]){
+                    isRepeat=true;
+                    break;
+                 }
+                 if (k==h) break;
+                 if (!isRepeat) result.push(arr[i])
+            }
+         }
+         return result;
+     }
+     var arr=["张三","李四","王五",1,2,"张三","李四","王五"];
+     console.log(unique(arr));
+     */
+
+     //方法五 利用递归和indexOf实现
+     /*var unique=function(arr,newArr){
+          var num;
+          //通过shift方法不断的返回数组中的第一个值, 而去判断数组中有没有重复值
+          if (-1==arr.indexOf(num=arr.shift())) newArr.push(num);
+          arr.length && unique(arr,newArr);
+     }
+     var arr=["张三","李四","王五",1,2,"张三","李四","王五"];
+     console.log(unique(arr));
+     */
+
+
+     //二.数组顺序扰乱
+     /*function shuffle(arr){
+         var copy=[],
+             n=arr.length,
+             i;
+             //如果还剩元素则继续循环
+          while(n){
+               //随机抽取一个元素       
+               i=Math.floor(Math.random()*arr.length);
+               //判断元素之前有没有被选择过
+               if(i in arr){
+                   copy.push(arr[i]);
+                   delete arr[i];
+                   n--;
+               }
+          }
+          return copy;
+     }
+
+     var arr=["张三","李四","王五",1,2,"张三","李四","王五"];
+     console.log(shuffle(arr));
+     */
+     //跟方法类似,不过是通过splice来去掉数组中已选项,而不是通过delete去删除
+     /*function  shuffle(arr){
+           var copy=[],
+           n=arr.length,
+           i;
+           while (n) {
+               i=Math.floor(Math.random()*n--);
+               copy.push(arr.splice(i,1)[0]);
+           }
+           return copy;
+     }
+     var arr=["张三","李四","王五",1,2,"张三","李四","王五"];
+     console.log(shuffle(arr));
+     */
+
+     //三,数组判断
+     //1.数组自带方法
+     /*
+         var arr=[];
+         console.log(Array.isArray(arr));//true
+     */
+     //利用instanceof运算符
+     /*
+     function isArray(arr){
+         return arr instanceof Array;
+     };
+     var arr=[];
+     console.log(isArray(arr));
+     */
+
+     //利用toString()返回值
+     
+     /*
+     function isArray(arr){
+         return Object.prototype.toString.call(arr)==="[object Array]";
+     }
+     var arr=[];
+     console.log(isArray(arr));
+     */
+
+
+     //判断函数是否通过new运算符构造
+     /*function Foo(){
+        if(!(this instanceof Foo)){
+            alert("请先实例化,再调用");
+        }
+     }
+     //Foo();//这样直接调用会让先实例化
+     var foo=new Foo();
+     foo;
+     */
+
+
+     //求数组的交集
+      /*var arr=["张三","李四","王五","赵六"];
+      var arr1=["李四","王五"];
+      //利用filter方法和indexOf方法,filter方法对数组中的每一项执行函数操作,直到所有项都返回true才发挥true
+     var intersection=arr.filter(function(value,index){
+         if(arr1.indexOf(value)>-1){
+            console.log(this);
+           return arr[index];
+         }
+      });
+    console.log(intersection);
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

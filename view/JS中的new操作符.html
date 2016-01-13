@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS中的new操作符</title>
+	<script type="text/javascript">
+	//如果一个函数前面带new来调用的话,那么将创建一个隐藏连接到该函数的prototype成员的新对象,同时将对象的this绑定到新对象上面。
+    //1.如果就一个函数,没有返回值,没有prototype,使用new会返回一个对象的实，一个函数的默认的prototype是Object
+	//创建一个函数(测试)
+	/*
+	function Test(str){
+       this.a=str;
+	}
+	//实例化函数对象
+	var myTest=new Test("test1");
+	console.log(myTest); //Test {a: "test1"}返回的是一个Object对象
+
+    //创建一个外测试函数
+	function TestWithoutNew(str){
+         this.a=str;
+	}
+
+	var myTestWithoutNew=new TestWithoutNew("testWith");
+	console.log(myTestWithoutNew);//Test {a: "test1"}
+
+	var myTestWith=Test("test");//undefined
+	*/
+
+
+	//2.如果函数没有返回值,但是返回值是基本类型。那么new出来的myTest还是object,因为基本类型prototype还是Object,而如果不适用new的话,就会返回基本的string类型
+
+	/*function Test(str){
+        this.a=str;
+        return this.a;
+	}
+    //使用new去调用,虽然函数的返回值是一个基本的数据类型,但是还是会返回一个object
+    //使用new去创建对象
+    var myTest=new Test("test");
+    console.log(myTest);//返回一个test对象
+
+    //返回一个普通值
+    function TestWithoutNew(str){
+        this.a=str;
+        return this.a;
+    }
+    
+    //普通调用
+    var myTestWith=TestWithoutNew("test1");
+    console.log(myTestWith);//test1
+    */
+
+    //3.如果函数的返回值为new出来的对象,那么函数的值根据new出来的对象的prototype而定
+    /*function Test1(str){
+    	this.a=str;
+    	return new String(this.a);
+    };
+    var myTest=new Test1("test1");
+    console.log(myTest);//String {0: "t", 1: "e", 2: "s", 3: "t", 4: "1", length: 5, [[PrimitiveValue]]: "test1"} 返回的是一个String对象
+    //因为返回的是new出来的对象,所以返回值会根据返回数据的prototype而定
+    */
+
+    //4.new中的this,如果我们给Test.Test的prototype中加入一个方法get_string
+    /*var  Test2=function(str){
+        this.a=str;
+    }
+    Test2.prototype.get_string=function(){
+    	 return this.a;
+    }
+    var myTest2=new Test2("test");
+
+    console.log(myTest2.get_string());//test
+
+    var Test2=function(str){
+        this.a=str;
+    }
+    Test2.prototype.get_string=function(){
+    	return  this.a;
+    }
+    var myTest2=Test2("test2");
+    console.log(myTest2);//undefined
+    */
+
+
+
+
+
+
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

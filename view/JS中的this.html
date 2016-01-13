@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS中的this</title>
+	<script>
+	    //JS中的function也是对象,由于调用function的对象不同,导致this指向不同
+	    //function是对象,所以也有方法。function中最核心的方法是call
+
+        /*
+	    //使用call方法
+	    function say(content){
+              console.log("From "+this+" :Hello "+content);
+	    }
+	    
+	    //使用call调用方法
+	    say.call("Bob","World");//From Bob :Hello World
+	   //在调用say方法时候,如果是用call,第一个参数表示调用的方法体内要改变的this对象,第二个参数表示调用方法时候要传入的参数
+	   //say.call("Bob","World")//这里通过call方法,让say函数执行时的this指向"Bob"
+
+	   //正常调用的话,这里的this会执行window
+	    say("World");//From [object Window] :Hello World
+	    say.call(window,"World");//From [object Window] :Hello World
+	    // say在使用call的时候,将this指向了window。他们两调用的结果是一样的
+	    //可以把say("World");看做是say.call(window,"World")的语法糖
+	    */
+	   
+	    /*
+	    //在匿名函数也是成立的
+	   //在严格模式下,call的第一个参数不是window而是undefined
+	   (function(name){
+          console.log(this+" : "+name);//[object Window] : aa
+	   })("aa");
+       //匿名自执行函数,利用call调用,上面的结果等价于下面这个
+       (function(name){
+             console.log(this+" : "+name);//[object Window] : aa
+       }).call(window,"aa");
+       //  匿名自执行函数解决了变量作用域的问题,将变量和函数包含在一个作用域内
+       */
+
+       //例子一
+       /*
+       var name="张三";
+       //函数作为对象的方法被调用
+       var person={
+       	  name:"Anle",
+       	  run:function(time){
+             console.log(this.name+":正在跑步,一共跑了:"+time+"分钟");
+       	  }
+       }
+       //调用方法
+       person.run("30");////Anle:正在跑步,一共跑了:30分钟
+       //等价于
+       person.run.call(person,"30");//Anle:正在跑步,一共跑了:30分钟
+       //这里的call中的第一个参数是person,而不是window,下面使用call去改变方法中的this指向
+
+       person.run.call(window,"30");//张三:正在跑步,一共跑了:30分钟,这里的name直接指向了全局变量name
+       */
+
+      
+       /*function hello(thing){
+           console.log(this+" says hello ");
+       };
+       //创建一个对象
+       person={
+       	 name:"Anle"
+       }
+       person.hello=hello;
+       person.hello("word");//[object Object] says hello 
+       person.hello.call(person,"world");
+       */
+      
+       //例子二
+       //创建一个obj对象
+       /*var obj={
+       	  x:"obj下的:"+20,
+       	  f:function(){
+       	  	console.log(this.x);
+       	  }
+       };
+       obj.f();//20
+       obj.f.call(obj);//20
+      
+       //声明一个变量
+       var x="window下的x属性:"+30;
+       //利用call去改变this指向,指向window
+       obj.f.call(window);//30
+
+       //声明一个对象,添加this属性
+       function Foo(){
+       	  this.x="Foo下的x:"+40;
+       }
+       //实例化Foo对象
+       var foo=new Foo();
+
+       //调用obj中的f方法,去改变this
+       obj.f.call(foo);//Foo下的x:40
+
+
+       //给obj对象添加一个包裹属性
+       obj.innerobj={
+       	 x:"obj属性innerobj下的x:"+50,
+       	 f:function(){
+       	 	console.log(this.x);
+       	 }
+       }
+
+       //调用innerobj中的方法
+       obj.innerobj.f();//obj属性innerobj下的x:50
+       //利用call去改变值,将innerobj中的this指向obj中的this
+       obj.innerobj.f.call(obj);//obj下的:20
+       */
+
+       //例子三
+       /*
+       var x="window下的x:"+10,obj={
+       	 x:"obj中的x:"+20,
+       	 f:function(){
+       	 	console.log(this.x);//这里的this会指向obj对象
+       	 }
+       }
+       //创建一个函数式声明表达式
+       var foo=function(){
+       	 console.log(this.x);
+       }
+       foo();//这里在调用时候x会指向window,全局变量
+       //等价于
+       foo.call(window);//window下的x:10
+       obj.f();//obj中的x:20
+       obj.f.call(window);//window下的x:10
+       //如果想让foo中的x输出20怎么办,还是利用call
+       foo.call(obj);//obj中的x:20
+       */
+
+       //例子四
+       /*var x="window下的x:"+10;
+       var obj={
+          x:"obj中的x:"+20,
+          f:function(){
+          	 console.log(this.x);
+          }
+       }
+
+       //声明变量保存this
+       var that=this;
+       //声明一个方法
+       var foo=function(){
+       	  console.log(that.x);//foo里面的this会这些window
+       }
+       obj.f();//obj中的x:20
+       foo();//window下的x:10
+       foo.call(obj);//虽然通过call将foo中的this指向了obj,不过因为使用了that过渡this,所以还是指向了window
+       */
+
+       //例子五
+
+       /*var x=10;
+       var obj={
+       	x:20,
+       	f:function(){
+       		console.log(this.x);
+       	}
+       }
+       obj.f();//20
+       obj.f.call(obj);//20
+
+       var fOut=obj.f;
+       fOut();//10 这里通过赋值的方法,将obj.f赋值给了fOut,这时候this会执行fOut运行的环境,window
+       fOut.call(window);//10
+       
+       //在声明一个变量obj,将obj.f赋值给f方法
+       var obj2={
+	       	x:30,
+	       	f:obj.f  //因为这里的f虽然调用的是obj.f但是,他只是一个引用。方法中的this,任然会指向调用他的对象
+       }
+       obj2.f();//30 
+       */
+
+
+       //构造函数
+       /*
+       function person(name){
+           this.name=name;
+       }
+       var Anle=new person("anle");
+       //函数再用作构造函数时同样可以用call方法代替,new 一个构造器是一种创建对象的语法糖
+       
+       //通过new创建的对象类似于,直接将对象的constructor指向对象的构造器,
+       var newObj={
+           constructor:person,
+           __proto__:person.prototype
+       }
+       */
+
+       function person(name){
+          this.name=name;
+       }
+
+       //通过new创建一个对象
+       var anle=new person("anle");
+       //new是一种语法糖,new person等价于
+       var bar=(function(){
+           var newObj={
+              constructor:person,//将对象的constructor指向对象的构造器
+              __proto__:person.prototype,//将对象的__proto__属性指向对象的prototype属性
+           };
+           _newObj.constructor(name);
+           _newObj.constructor.call(_newObj,name);//将对象中的this指向新创建的对象实例
+           return _newObj;//返回对象
+       })();
+       
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

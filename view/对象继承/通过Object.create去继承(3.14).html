@@ -4,8 +4,7 @@
 	<meta charset="UTF-8">
 	<title>通过Object.ceeate方法实现类继承</title>
 	<script type="text/javascript">
-	//通过Object.create方法可以实现类的继承,但是create方法中必须传入要继承的类的实例
-
+	//通过Object.create方法创建一个具有指定原型且可选择性地包含指定对象属性的对象,并将对象的原型执行create方法中的参数。可以实现类的继承。
 	//创建一个父类
 	function Person(){
 		this.name="张三";
@@ -32,7 +31,7 @@
 
 	//在使用Object.create方法时候,传入的必须是一个对象的实例
 
-	var objTest=Object.create(Person);
+	/*var objTest=Object.create(Person);
 	console.log(objTest);//是一个空对象
 	console.log(objTest instanceof Person);//false
 	console.log(objTest.name);//Person 会打印出这个方法的名称
@@ -52,6 +51,21 @@
     var obj2=Object.create(obj);
     console.log(obj2.name);//李四
     console.log(obj2.sayHello());//我是:李四,今年:23,我是一名:前端工程师
+    */
+
+    function Student(){
+        // Person.call(this);
+    }
+
+    //通过Object.create方法实现继承
+   // Student.prototype=Object.create(Person.prototype);
+   // var stu=new Student();
+   //  console.log(stu.name);
+   var per=new Person();
+   var stu=Object.create(per);
+   console.log(stu);
+   console.log(stu.name);
+   console.log(stu.sayHello());
 
 
 

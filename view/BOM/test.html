@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <style type="text/css">
+    .num_box{
+       height: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+   .num{
+     list-style: none;
+      height: 20px;
+      position: absolute;
+      top: -20px;
+   }
+   .num li{
+   	width: 45px;
+   	height: 25px;
+   	font:600 30px/25px "黑体";
+   	color: red
+   }
+    </style>
+    <script type="text/javascript">
+     window.onload=function(){
+     	  var text_num=8,num_elem=document.getElementById("num"),num_index=0,li_list=num_elem.querySelectorAll("li");
+     	 for (var i = 0; i < li_list.length; i++) {
+     	 	if(li_list[i].innerHTML==text_num){
+              num_index=i;
+     	 	}
+     	 }
+     	 num_elem.style.transition="top 0.5s ease";
+     	 num_elem.style.top=(-(num_index+1)*24)+"px";
+     }
+    </script>
+    <body>
+    <div class="num_box">
+	    <ul class="num" id="num">
+	       	<li>1</li>
+	       	<li>2</li>
+	       	<li>3</li>
+	       	<li>4</li>
+	       	<li>5</li>
+	       	<li>6</li>
+	       	<li>7</li>
+	       	<li>8</li>
+	       	<li>9</li>
+	      </ul>
+    </div>
+       
+    </body>
+</html>
