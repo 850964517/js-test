@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>稀疏数组</title>
+	<script>
+    // 稀疏数组就是包含从0开始的不连续索引的数组,通常情况下数组的length属性值代表数组中元素的个数
+    /*
+    var arr=Array(5);
+    console.log(arr.length);//5
+    arr=[];
+    arr[1000]=0;
+    //在使用数组时候,可以使用Array传入一个参数直接使用,不必使用new关键字
+     for(var item in arr){
+        console.log(arr[item]);//0
+     }
+    console.log(arr.length);//1001
+    //发现虽然设置了数组的长度值,但是使用了下标去设置数组元素的值,长度会改变。
+    //这些省略的数组元素的值是undefined
+    console.log(arr[8]);// undefined
+    console.log(arr[1000]);
+    //在使用数组时候可以使用in操作符,来判断一个数值是否在数组中
+    console.log(3 in arr);//false
+    console.log(1000 in arr);//true
+
+    //需要注意的是,在数组中使用逗号也是给赋值操作
+    arr=[1,,4,,,];
+    console.log(arr.length);//5
+    // 实际上arr[1,,4,,,]等价于arr[1,undefined,4,undefined,undefined]
+    */
+
+    //在数组中使用delete操作去删除数组中的元素,其本质也是稀疏数组
+   /* var arr1=[1,2,3,4,5,6,7];
+    console.log(arr1.length);
+    //使用delete删除数组中的元素
+    delete arr1[2];
+    for(var item in arr1){
+        console.log(arr1[item]);//1,2,4,5,6,7
+    } 
+    console.log(arr1.length);//7 
+    //使用delete操作的是将数组中要删除的值,赋值为undefined,起数组的长度是不会发送变化。数组中后面的值也不会往上移动
+    */
+
+
+    //数组中的长度表示数组中元素的个数(不是稀疏数组的情况下,稀疏数组中数组的length属性大于数组的元素个数)
+    var arr=[2,3,8,"g","h"];
+    console.log(arr.length);
+    arr.splice(3,1);
+    console.log(arr.length);//4
+    //使用splice方法可以删除数组中的值,而且数组的length也会减少,与delete不同的是splice不是稀疏数组
+    for(var item in arr){
+        console.log(arr[item]);//2,3.8,g,h
+    }
+    arr.length=0;//把数组的长度设置成0,其实质是清空了数组
+     for(var item in arr){
+        console.log(arr[item]);
+    }
+    console.log(2 in arr);
+    
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

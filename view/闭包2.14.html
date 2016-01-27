@@ -77,6 +77,38 @@
       c();//调用c时候会调用B函数
       //在A中返回B（在A中返回B的引用）,执行A(),把A的返回结果赋值给变量 c
 
+
+      var map={
+         boy:"body/hi",
+         girl:'girl/hi'
+      }
+      var fn=function(url,id){
+          console.log(url+id);
+      }
+      var man={};
+      for (var x in map){
+         (function(x){
+            max[x]=function(id){
+               fn(max[x],id)
+            }
+         })(x);
+      }
+      max.boy(1)//body/hi/1
+      max.girl(1)//girl/hi/1
+
+
+   var f1=function(a,b){
+       return a+b;
+    }
+    var f2=function(m){
+       return function(f1,n){
+          return f1(n,m);
+       }
+    }
+    var f3=f2(f1,20);
+    f3(30);//50
+
+
 	</script>
 </head>
 <body>

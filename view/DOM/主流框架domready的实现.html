@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>各主流框架domready的实现</title>
+	<style>
+       #elem{
+       	 color:red;
+       }
+	</style>
+	<script type="text/javascript">
+     	//实际应用中,等window.onload加载完成是比较慢的，影响用户体验，ff中使用	DOMcontentloaded方法,这比onload事件触发的更早
+
+     	//1.prototype实现的原理
+     	(function(){
+     		//声明一个时间变量
+     		var timer;
+     		function firContenLoadedEvent(){
+                //判断页面是否加载完毕
+     			if(document.loaded) return;
+     		}
+     	});
+
+     	//测试DOMContentLoaded事件,DOMConetentLoaded事件会在文档加载时候出发,使用延迟调用的话,文档已经加载完毕了,所以不会出发事件
+     	    /*setTimeout(function(){
+
+     	       document.addEventListener('DOMContentLoaded',function(){
+
+     		      console.log(getComputedStyle(document.getElementById("elem"),null).color);
+     	       });
+     	    },2000);
+        */ 
+     	
+     	//getComputedStyle()放可以获取一个元素最终使用的css属性值
+     	/*document.addEventListener("DOMContentLoaded",function(){
+     		 alert(getComputedStyle(document.getElementById("elem"),null).color);
+     	});*/
+     
+     	
+
+	</script>
+	
+</head>
+<body>
+	 <div id="elem">The element</div>
+</body>
+</html>

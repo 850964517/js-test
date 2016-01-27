@@ -81,6 +81,33 @@
     */
 
 
+    //5.修改对象的prototype,会发生什么
+    function Test1(str){
+        this.b=str;
+    }
+    //给Test1添加prototype属性
+    Test1.prototype.Get_Test1String=function(){
+         return this.b;
+    }
+    //创建一个test2对象
+    var Test2=function(str){
+        this.a=str;
+    }
+    //让Test2继承Test1
+    Test2.prototype=new Test1("test1");
+    //动态修改Test2的prototype属性
+    Test2.prototype.get_string=function(){
+        return this.a;
+    }
+    //创建一个Test2的实例
+    var myTest2=new Test2("test2");
+    console.log(myTest2);
+    console.log(myTest2.get_string());//test2 调用myTest2上面的方法
+    //调用父类上的方法
+    console.log(myTest2.Get_Test1String());//test1
+    
+
+
 
 
 

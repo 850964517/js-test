@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS中的跨域JSONP实现的原理</title>
+	<script>
+
+     //由于JS中的同源策略,导致不用的域名之间不能通过js去获取数据,二级域名也不能访问父域名中的内容
+     /*JSONP原理 
+     JSONP的最基本的原理是：动态添加一个<script>标签，而script标签的src属性是没有跨域的限制的。这样说来，这种跨域方式其实与ajax XmlHttpRequest协议无关了。 
+     这样其实"jQuery AJAX跨域问题"就成了个伪命题，jquery $.ajax方法名有误导人之嫌。 
+     如果设为dataType: 'jsonp'，这个$.ajax方法就和ajaxXmlHttpRequest没什么关系了，取而代之的则是JSONP协议。JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问。 
+
+     //JSONP实现的原理是通过在页面动态的创建script标签的方法向不同的域提交HTTP请求的方法,利用script跨域是一种get方式
+
+     JSONP的执行过程如下:
+     首先在客户端注册一个callback('jsonback'),然后把callback的名字传给服务器,服务器得到calback的数值后,要用jsonp将json的内容包起来传递给客户端,并且返回一个Script tags
+
+     //创建一个script节点
+     /*var eleScript=document.createElement("script");
+     eleScript.type="text/javascript";
+     eleScript.src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js";
+     document.getElementsByTagName("HEAD")[0].appendChild(eleScript);
+     */
+
+     //利用动态的创建script标签去获取数据,然后将数据传回指定的callback方法中,例如jquery中的$.ajax()方法
+     //JSONP跨域是一种动态创建script实现的,所以有一定的安全隐患
+
+      function jsonpCallback(result){
+         console.log(result.msg);
+      }
+      //jsonpCallback是客户端注册的,获取跨域服务器上的json数据后。然后以javascript语法的方式,生成一个function,function中的参数就是传回来的json数据,然后将json数据直接以入参数的方式,放置到function中,返回给客户端
+
+
+
+     //要想实现跨域中的post,可以使用post+动态生成ifrae的方式去实现
+
+
+
+     
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

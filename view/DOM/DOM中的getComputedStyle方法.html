@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM中的getComputedStyle方法</title>
+	<style>
+	   body{
+	   	font: 600 14px/1 "黑体";
+	   }
+      #elem{
+      	/*font: 600 14px/1 "黑体";*/
+      	color:red;
+      }
+	</style>
+	<script>
+	window.onload=function(){
+	   //js中的getComputedStyle方法可以获取当前元素最终使用的CSS属性值,返回的是一个CSS的样式声明对象,只读
+       //语法格式:window.getComputedStyle("元素","伪类")
+
+       var testDom=document.getElementById("elem"),
+           StyleObj=window.getComputedStyle(testDom,":after");
+           console.log(StyleObj);//CSSStyleDeclaration 返回一个应用在改元素上的css
+           /*getComputedStyle方法接收两个参数,第一个表示要获取样式的元素,第二个表示传入的伪类。
+           在只是额外提示下：Gecko 2.0 (Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1) 之前,第二个参数伪类是必须的（没有情况下可以设置null）*/
+
+           //获取元素elem的颜色值
+           console.log(StyleObj.color);//rgb(255,0,0)返回的是一个rgb的颜色值
+           console.log(StyleObj.font);//normal normal 600 normal 14px / 14px 黑体 虽然在elem元素上面没有设置字体,不过因为elem继承了body上面的样式,还是会获取到
+
+        //getComputedStyle和style的区别
+        //是js中使用element.style也可以获取元素的css样式声明对象,但与getComputedStyle的区别如下:
+        //1.getComputedStyle获取的样式是只读的,不能设置修改样式。而element.style可以读取或设置样式的值
+        //2.获取对象范围:getComputedStyle方法获取的是最终应用在元素上面的所有css元素(如果没有,也会获取继承到父元素上面继承的样式),而使用style的时候只会获取到应用到元素上面的属性
+
+	}
+      
+	</script>
+</head>
+<body>
+	 <div id="elem">
+	 	The element
+	 </div>
+</body>
+</html>

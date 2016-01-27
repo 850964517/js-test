@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原生javascript技巧</title>
+	<style>
+	  .test{
+	  	/*vertical-align关键字*/
+	  	vertical-align:baseline;
+	  	vertical-align: sub;
+	  	vertical-align: super;
+	  	vertical-align: text-top;
+	  }
+	</style>
+	<script>
+     //JS实现字符串长度截取
+     function custr(str,len){
+          var temp,icount=0,patrn=/[^\x00-\xff]/;
+          var strre="";
+          for(var i=0;i<str.length;i++){
+          	 if(icount<len-1){
+                temp=str.substr(i);
+                if(patrn.exec(temp)){
+                    icount=icount+1;
+                }else{
+                	icount=icount+2;
+                }
+                strre+=temp;
+          	 }else{
+          	 	break;
+          	 }
+
+          }
+          return strre+"....";
+     }
+     var str="a";
+     var resultStr=custr(str,4);
+     console.log(resultStr);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

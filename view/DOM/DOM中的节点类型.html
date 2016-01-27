@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS中的节点类型</title>
+	<script>
+     window.onload=function(){
+     	var divNode=document.getElementById("container");
+     	//nodeName可以返回节点的名称
+     	console.log(divNode.nodeName);//DIV
+     	//nodeValue可以返回节点的value
+     	console.log(divNode.nodeValue);//null
+     	//属性节点
+     	var attrNode=divNode.attributes[0];
+     	//获取属性节点的nodeName属性
+     	console.log(attrNode.nodeName);//id
+     	//获取属性节点的nodeValue属性
+     	console.log(attrNode.nodeValue);//container
+        
+        //获取元素的子元素节点,childNodes和attributes属性都是一个类数组对象,可以直接通过下表去访问
+     	var  textNode=divNode.childNodes[0];
+     	console.log(textNode.nodeName);//#text
+     	console.log(textNode.nodeValue);//这是一个元素节点
+
+     	//获取一个注释节点,因为body第一个节点是一个空白文本节点,第二个节点才是注释节点
+     	var commentNode=document.body.childNodes[1];
+     	console.log(commentNode.nodeName);//#comment
+     	console.log(commentNode.nodeValue);//nodeName和nodeValue练习 
+
+     	//docType节点
+     	console.log(document.doctype.nodeName);//html
+     	console.log(document.doctype.nodeValue);//null
+
+
+     	//文档片段节点
+     	//创建一个文档片段节点
+     	var frag=document.createDocumentFragment();
+     	console.log(frag.nodeName);//#document-fragment
+     	console.log(frag.nodeValue);
+
+ 
+     }
+	</script>
+</head>
+<body>
+     <!-- nodeName和nodeValue练习 -->
+	 <div id="container">这是一个元素节点</div>
+</body>
+</html>

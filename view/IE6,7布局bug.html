@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IE6,7布局BUG</title>
+	<style>
+     /*IE6/7绝对定位元素会神秘消失或被遮挡*/
+     /*所有浏览器通用:
+     height:100px;
+     IE6专用:_height:100px;
+     IE7专用+height:100px,*height:100px;
+     IE7,FF共用:
+     height:100px !imporant;
+     */
+     .divcss5{
+     	width: 400px;
+     	/*height: 120px;*/
+     	border:1px solid #f00;
+     	background:#FF0;
+     	/*clear: both;*/
+     	/*overflow: hidden;*/
+     }
+     .divcss5-left,.divcss5-right{
+     	 width: 180px;
+     	 height: 100px;
+     	 border:1px solid #00f;
+     }
+     .divcss5-left{
+         float: left;
+     	}
+     	.divcss5-right{
+         float: right;
+     }
+     /*在浏IE览器下,当容器的高度微auto,或者不设置高度时候,且子元素中设有浮动的元素,这种情况下,容器的高度不能
+     自动伸张以自动适应高度,使得内容溢出到外面,为了防止这种布局现象被破坏,进行处理的css,叫做css清除浮动。*/
+     /*子元素使用浮动后,发现父元素高度撑不开*/
+     /*解决办法:对父元素设置适合的高度:height:120px;*/
+
+     /*使用clear:both;在父元素底部添加一个空元素,并清除浮动*/
+     .clear{
+     	clear:both;
+     }
+
+     /*给父元素添加overflow:hidden
+     overflow:hidden属性相当于是让父级内容紧贴,这样即可紧贴其对象内容,从而实现了清楚浮动的方法
+     */
+
+     /*使用伪元素和IEhack,可以兼容各大浏览器*/
+     .clearfix:after{
+     	content:"";
+     	display:block;
+     	height: 0;
+     	clear:both;
+     	visibility: hidden;
+     }
+     .clearfix{
+     	/*触发haslayot*/
+     	zoom:1;
+     }
+     /*给浮动元素的容器添加一个clearfix的class,然后给class添加一个:after的伪元素实现在元素的末尾添加一个	看不见的块级元素用来清除浮动*/
+
+
+
+     /*随着IE7对!important的支持,!important方法只针对IE6的兼容(这种声明位置需要提前);*/
+     #wrapper{
+     	width: 100px !important;/*IE7+FF*/
+     	width: 80px;
+     }
+
+     
+     /*1.FF下给div设置padding后会导致width和height增加,但IE不会(可用!important解决,强制设回来)*/
+     /*2.IE6/7不支持mix-height,解决办法忽略min-height属性*/
+     .test{
+     	min-height: 200px;
+     	height: auto !important;
+     	height:500px;
+     }
+     
+     /*在IE中图片缩放
+     Blcublc图像缩放(Blcubic Image Scaling),在IE中使用图片缩放看起来不如其他浏览器
+     img{
+     	-ms-interpolation:bicubic;
+     }
+     */
+
+     /*IE中的盒模型*/
+     /*标准的盒模型的总宽度等于:margin-left+border-left+padding-left+width+margin-right+padding-right+border-left;
+     在IE中的盒子模型:margin-left+width+margin-right
+     IE中的盒子模型不算padding和border的宽度,解决办法,强制使用IE hack,设置固定宽度
+     \width:180px;
+     */
+
+     /*双倍边距问题bug
+     如果你有一个分配有左/右边距的浮动元素,IE6会使得边距双倍化。比如margin-left:5px;这时候边距会变成10px
+     解决办法对浮动元素添加display:inline来解决这个问题
+     */
+
+     div.test{
+     	float: left;
+     	width: 200px;
+     	margin-left: 5px;
+     	display: inline;  /*设置元素的display为inline*/
+     }
+
+     /*居中问题
+     1.垂直居中:将line-height高度设置成为当前容器的高度,再通过vetical-align:middle;
+     2.水平居中,margin:0 auto;
+     */
+
+
+
+
+
+
+
+	</style>
+</head>
+<body>
+    <div class="divcss5 clearfix"> 
+	    <div class="divcss5-left">left浮动</div> 
+	    <div class="divcss5-right">right浮动</div> 
+	    <!-- <div class="clear">	
+	    </div> -->
+	    <div class="test"></div>
+    </div> 
+</body>
+</html>

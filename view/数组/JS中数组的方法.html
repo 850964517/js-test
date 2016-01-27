@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS中的数组方法</title>
+	<script>
+	 //JS中数组包含很多方法
+	 //join方法将数组中的所有元素都转化成字符串
+	 var  arr=[1,2,3];
+	 var strArr=arr.join(",");
+	 console.log(strArr);//1,2,3
+	 console.log(typeof strArr);//string
+
+	 //reverse 方法将数组中的元素进行颠倒顺序
+	 console.log(arr.reverse());//3,2,1
+
+	 //sort方法将数组中的元素排序并返回排序后的数组
+	 console.log(arr.sort());//1,2,3
+
+     //sort排序方法中可以传入一个方法,用来改变数组的排序方向,排序后会改变原来数组中的值
+	 console.log(arr.sort(function(a,b){return b-a}));//3,2,1
+	 //在使用sort方法时候,如果数组中的元素是以字母开的话,会以字符的先后顺序来排序
+
+	 //push方法向数组末尾增加一个或者多个元素
+	 arr.push(4);
+	 console.log(arr);//[3, 2, 1, 4]
+
+	 //concat()方法创建并返回一个新数组,将数组中其他的元素链接到数组中,concat方法会返回一个新数组
+	 var  arr2=arr.concat(5,6);//将5,6链接进去
+	 console.log(arr2);//[3, 2, 1, 4, 5, 6]
+
+	 //slice方法返回指定数组的一个片段或子数组
+	 //console.log(arr2.slice(0,2));//3,2
+
+	 //splice方法在数组中删除元素和插入元素
+	 // console.log(arr.splice(2,1));//1
+
+	 //pop方法删除数组中最后一个元素,并返回删除的元素
+	 // console.log(arr.pop());//4
+
+	 //shift和unshift方法非常类型于push和pop,不一样的是unshift和shift是在数组的头部进行
+	 // console.log(arr.shift());//3 删除数组中的第一个元素,并返回数组中删除的值
+	 console.log(arr.unshift(7));//在数组的顶部添加元素
+	 console.log(arr);//[7, 3, 2, 1, 4]
+
+     //toString方法,将数组编程字符组类型,该方法是Object类上面的方法,因为Array是基类也是Object
+     console.log(arr.toString());//7,3,2,1,4
+
+     //toLocaleString()转换成本地的string类型
+     console.log(arr.toLocaleString());
+
+
+	</script>	
+</head>
+<body>
+	
+</body>
+</html>

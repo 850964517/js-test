@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS中的文档类型</title>
+	<script>
+	  window.onload=function(){
+	  	  var nodeElem=document.getElementById("continer");
+	  	  console.log(nodeElem.nodeName);//获取元素名称
+	  	  console.log(nodeElem.nodeType);//1
+	  	  console.log(nodeElem.nodeValue);
+	  	  //创建一个文档片段
+	  	  var divNode=document.createDocumentFragment();
+	  	  console.log(divNode.nodeName);//#document-fragment
+	  	  console.log(divNode.nodeType);//11
+	  	  //创建元素节点
+	  	  for(var i=0;i<5;i++){
+             var li=document.createElement("li");
+              li.innerHTML="第"+i+"个li";
+              divNode.appendChild(li);
+	  	  }
+	  	  nodeElem.appendChild(divNode);
+
+	  	  //获取元素的属性的集合
+	  	  var attrList=nodeElem.attributes;
+	  	  console.log(attrList);//NamedNodeMap 返回一个attributes的对象
+	  	  console.log(typeof attrList[0]);//object
+	  	  console.log(typeof attrList);//object
+	  	  //在对节点使用attributes时候会返回一个节点的对象的集合,可以通过下标去访问
+	  	  console.log(attrList[0].name);//id
+	  	  console.log(attrList[0].value);//ontiner
+
+
+	  	  //获取一个文本节点
+	  	  var text_input=document.getElementById("text_input");
+	  	  console.log(text_input.nodeName.toLowerCase());
+
+
+	  }
+	</script>
+   
+</head>
+<body>
+	 <div id="continer" name="contant">这是一个div元素</div>
+	 <input type="text" value="这是一个input框" id="text_input">
+</body>
+</html>
