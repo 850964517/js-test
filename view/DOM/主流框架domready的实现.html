@@ -12,14 +12,74 @@
      	//实际应用中,等window.onload加载完成是比较慢的，影响用户体验，ff中使用	DOMcontentloaded方法,这比onload事件触发的更早
 
      	//1.prototype实现的原理
-     	(function(){
+     	/*(function(){
      		//声明一个时间变量
      		var timer;
      		function firContenLoadedEvent(){
-                //判断页面是否加载完毕
+                //判断页面是否加载完毕,如果加载完毕就return
      			if(document.loaded) return;
+                //清除定时调用
+                if(timer) clearInterval(timer);
+                //document.fire是一个事件触发器,这里用来触发dom的loaded事件
+                document.fire("dom:loaded");
+                document.loaded=true;
      		}
+          if (document.addEventListener) {
+             //判断是否是webkit浏览器
+             if(Prototype.Browser.Webkit){
+                timer=window.setInterval(function(){
+                    //轮询document.readyState的状态
+                   if(/loaded|complete/.test(document.readySstate)){
+                       firContenLoadedEvent();
+                   }
+                },0);
+                Event.observe(window,"load",fireContentLoadedEvent);
+             }else{
+                //添加dom加载事件
+                document.addEventListener("DOMContentLoaded",firContenLoadedEvent,false)
+             }   
+          }else{
+             //是IE浏览器则往页面添加一个script标签
+             //创建一个script标签,用来检测页面文档是否加载完毕
+             document.write("<"+"script id=__onDOMContentLoaded defer src=//:><\/script>");
+             $("__onDOMContentLoaded").onreadystatechange=function(){
+                 //判断当前文档状态
+                 if(this.readyState=="complete"){
+                     //消除事件
+                     this.onreadystatechange=null;
+                 }
+             }
+          }
      	});
+        //实现思路:如果是webkit轮询查document的readyState属性,如果该属性的值微loaded或complete则触发DOMContentLoaded事件,为了保险起见将该事件注册到window.onload上
+        //如果是FF就直接注册DOMContentLoaded事件
+        //如果是IE浏览器则使用document.write()往页面添加一个script标签并设置defer属性,最后把脚本的加载完成视作DOMContentLoaded事件来触发
+        */
+
+
+        //2.jQuery实现思路
+        function bindReady(){
+             if(readyBound) return;
+              readyBound=true;
+              //Mozila,Opera and wekit 浏览器添加事件
+              if(documet.addEventListener){
+                  //添加文档加载事件
+                  document.addEventListener("DOMContentLoaded",function(){
+
+                     document.removeEventListener("DOMContentLoaded",arguments.callee,false)
+                  });
+              }
+        }
+        //jQuery实现原理
+        //如果是webkit和Firefox都是直接注册DOMContentLoaded事件
+        //如果是IE首先注册document.onreadystatechange事件,经发现该方法与window.onload相当,等到页面资源加载完毕后才会触发
+        //判断IE并且页面不在iframe当中,通过setTimeout来不断的调用document.documentElement中的doScroll方法,直到页面调用成功再出发DOMContentloaded事件
+
+        /*jQuery对于IE的解决方案,使用的是一种hack的方式。他的原理是,在IE下DOM的某些方法必须在DOM解析完成之后才能调用,
+        doScrool就是这样一个方法,反过来当能调用doScrool时候,说明dom加载完毕了。与prototype中通过document.write相比,使用iframe相比,doScrool可以解决iframe失效的问题.jquery使用了一种兼容的写法,如果页面是iframe时候通过onreadystatechange事件来实现,否则通过doScrool来实现.*/
+
+
+
 
      	//测试DOMContentLoaded事件,DOMConetentLoaded事件会在文档加载时候出发,使用延迟调用的话,文档已经加载完毕了,所以不会出发事件
      	    /*setTimeout(function(){

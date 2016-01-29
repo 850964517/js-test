@@ -14,12 +14,13 @@
 	</style>
 	<script>
 	window.onload=function(){
+       //js中的style属性可以获得html标签的样式,但是不能获取非行间样式,在火狐下使用getComputedStyle,在IE下面使用
 	   //js中的getComputedStyle方法可以获取当前元素最终使用的CSS属性值,返回的是一个CSS的样式声明对象,只读
        //语法格式:window.getComputedStyle("元素","伪类")
 
        var testDom=document.getElementById("elem"),
            StyleObj=window.getComputedStyle(testDom,":after");
-           console.log(StyleObj);//CSSStyleDeclaration 返回一个应用在改元素上的css
+           // console.log(StyleObj);//CSSStyleDeclaration 返回一个应用在改元素上的css
            /*getComputedStyle方法接收两个参数,第一个表示要获取样式的元素,第二个表示传入的伪类。
            在只是额外提示下：Gecko 2.0 (Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1) 之前,第二个参数伪类是必须的（没有情况下可以设置null）*/
 
@@ -27,10 +28,43 @@
            console.log(StyleObj.color);//rgb(255,0,0)返回的是一个rgb的颜色值
            console.log(StyleObj.font);//normal normal 600 normal 14px / 14px 黑体 虽然在elem元素上面没有设置字体,不过因为elem继承了body上面的样式,还是会获取到
 
-        //getComputedStyle和style的区别
+        //1.getComputedStyle和style的区别
         //是js中使用element.style也可以获取元素的css样式声明对象,但与getComputedStyle的区别如下:
         //1.getComputedStyle获取的样式是只读的,不能设置修改样式。而element.style可以读取或设置样式的值
+         // StyleObj.color="#000";//会直接报错,说color属性是只读的
+         console.log(StyleObj.color);
+         testDom.style.color="#000"
         //2.获取对象范围:getComputedStyle方法获取的是最终应用在元素上面的所有css元素(如果没有,也会获取继承到父元素上面继承的样式),而使用style的时候只会获取到应用到元素上面的属性
+        console.log(testDom.style.font);//null 使用style不能获取到font的属性值
+        console.log(StyleObj.font);//normal normal 600 normal 14px / 14px 黑体 而通过getComputedStyle能获取到
+
+
+
+        //2.getComputedStyle与defaultView的区别
+        //jQuery中的css方法是利用document.defaultView.getComputedStyles实现的,而不是getComputedStyle
+        //不过在使用的时候没必要使用defaultView,因为defaultView本身就是window的对象
+
+        //3.getComputeStyle兼容性,getComputeStyle方法在IE6~8不支持
+
+        //4.getComputedStyle和currentStyle
+        //获取样式obj表示获取的节点,attr表示要获取的属性
+        function getStyle(obj,attr){
+
+          if(!obj || !attr) return;
+          //能力检测,如果是IE浏览器就是用currenStyle
+          if(obj.currentStyle){
+               return obj.currentStyle[attr];
+           }else{
+           	 return getComputedStyle(obj,null)[attr];
+           }
+        }
+
+       console.log(getStyle(testDom,"color"));
+       console.log(getStyle());
+
+
+
+
 
 	}
       

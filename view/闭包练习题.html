@@ -9,21 +9,70 @@
       alert(a);
       */
 
-      var a=10;
-      while(a){
-         console.log("tt");
-      }
+      //var a=10;
+      // while(a){
+      //    console.log("tt");
+      // }
+      // setTimeout(function(){
+      // 	a=0;
+      // },3000);
+      
+      //测试setTimeout和setInterval区别
+      /*var time1=new Date().getTime();
+      console.log("开始时间:"+time1);
       setTimeout(function(){
-      	a=0;
+         console.log("间隔时间:"+new Date().getTime());
+         console.log("时间差:"+(new Date().getTime()-time1));
       },3000);
+      console.log("哈哈");
+      
+      //在使用setTimeout时候不会阻止下面代码的执行,如果使用while循环的话会阻止下面的代码的执行
 
-      var f1=function(a,b){
+      // var time1=new Date().getTime();
+      // var time=setInterval(function(){
+      //    var time2=new Date().getTime();
+      //    console.log(time2);
+      // },50);
+      // console.log("哈哈哈哈");
+      */
 
+      //闭包实现获取点击获得点击元素的html值
+      window.onload=function(){
+            var ulList=document.getElementById("ulList");lilist=ulList.getElementsByTagName("li");
+            for(var i=0;i<lilist.length;i++){
+               //1.利用this来获取,因为在方法中的this总是指向绑定的dom元素
+                  // lilist[i].onclick=function(){
+                  //       console.log(this.innerHTML);
+                  // }
+               //2.利用闭包匿名函数,用来保存循环时候的i变量,这样在循环的时候就可以取到点击时候i值
+               // (function(i){
+               //    lilist[i].onclick=function(){
+               //           console.log(lilist[i].innerHTML);
+               //    }
+               // })(i);
+               
+               //3.利用点击事件传入的event事件,而获得事件触发的元素
+               lilist[i].onclick=function(event){
+                 var tarElem=event.target || event.srcElement;
+                 console.log(tarElem.innerHTML);
+               }
+               
+            }
       }
+
+
+
+     
 
 	</script>
 </head>
 <body>
-	
+	 <ul id="ulList">
+             <li>li1</li>
+             <li>li2</li>
+             <li>li3</li>
+             <li>li4</li>
+             <li>li5</li>
+       </ul>
 </body>
 </html>

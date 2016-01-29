@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>domReady实现</title>
+	<script>
+     //实现domReady,参数fn是dom加载完成后要调用的函数
+     function mydomReady(fn){
+     	  //声明变量用来记录dom是否加载完成,确保dom加载完成后只调用一次fn方法
+     	  var d=window.document,flag=false;
+     	  //初始化方法
+     	  init=function(){
+     	  	 if(!flag){
+                 flag=true;
+                 //调用加载方法dom加载完成后的方法,使用flag变量是为了确保fn方法只调用一次
+                 fn();
+     	  	 }
+     	  };
+     	  //如果是IE不支持DOMContentLoaded方法,使用一个匿名自执行函数
+     	  (function(){
+     	  	//这里利用的是IE中的hack,在IE中doScrool方法只有在dom完全加载完毕后才能使用
+     	  	//通过try来判断调用的doScrool方法是否报错,如果报错,通过setTime间隔调用,知道不报错为止
+     	  	 try{
+                d.documentElement.doScrool('left');
+     	  	 }catch(e){
+                setTimeout(arguments.callee,50);//一直调用方法本身
+                return;
+     	  	 }
+     	  	 init();
+     	  })();
+     	  //FF,webkit下通过判断readyState状态来看也没是否加载完毕
+     	  d.onreadystatechange=function(){
+     	  	  if(d.readyState=='complete'){
+                  //如果dom加载完成,销毁onredaystatechange事件
+                  d.onreadystatechange=null;
+                  //调用要调用初始化方法
+                  init();
+     	  	  }
+     	  }
+     }
+     //测试domready方法
+     var time1,time2;
+    function getTime(){
+    	console.log("毫秒数:"+new Date().getTime());
+    	time1=new Date().getTime();
+    }
+    mydomReady(getTime);
+    window.onload=function(){
+    	console.log("毫秒数:"+new Date().getTime());
+    	time2=new Date().getTime();
+    	console.log("使用mydomready比onload快:"+(time2-time1));
+    }
+	</script>
+</head>
+<body>
+	<div id="testDiv">这是一个测试div</div>
+	<img src="../../image/banner.jpg" alt="测试图片1">
+	<img src="../../image/myuser.jpg" alt="测试图片2">
+	<img src="../../image/panzong.jpg" alt="测试图片3">
+	<img src="../../image/shekeyuan.jpg" alt="测试图片4">
+	<img src="../../image/yiluyouni.jpg" alt="测试图片4">
+	<img src="../../image/banner.jpg" alt="测试图片1">
+
+	
+
+
+</body>
+</html>

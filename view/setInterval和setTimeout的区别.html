@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setTimeout和setInterval的区别</title>
+	<style>
+       .send_btn{
+       	 display: inline-block;
+       	 width: 100px;
+       	 height: 35px;
+       	 font: 500 16px/35px "黑体";
+       	 text-align: center;
+       	 /*background-color: #ff7900;*/
+       	 color: #fff;
+       	 border-radius: 3px;
+       	 cursor:pointer;
+       }
+       .btn_dis{
+       	background-color: #ccc;
+       }
+       .btn_vis{
+       	background-color:#ff7900;
+       }
+	</style>
+	<script>
+	   //setTimeout和setInterval这两个方法都可以用来实现一个固定时间段后执行代码
+	   //区别setInterval在执行完一次代码之后,经过固定时间再重复执行一次,而setTimeout只执行一次那段代码
+	   /*
+	   showTime();
+	   function showTime(){
+	   	 var today=new Date();
+	   	 console.log("The time is:"+today.toString());
+	   	 //延迟调用
+	   	 setTimeout("showTime()",3000); 
+	   }
+	   */
+	   //一旦调用了该函数,那么就会每隔3秒钟调用一次, 效果类似于setInterval
+
+       /*setInterval("showTime()",3000);
+	   function showTime(){
+	   	 var today=new Date();
+	   	 console.log("The time is:"+today.toString());
+	   }
+       */
+	   //这两个方法和执行的结果非常相似,两者组大的区别是:
+	   //1.setTimeout方法不会间隔3秒钟就执行一次showTime函数,他是在每次调用完showTime函数完成后,再过3秒钟执行一次showTime函数,如果showTime执行需要2秒钟,那么整个函数需要5秒钟执行完毕,而setInterval只是简单的每隔3秒钟调用,间隔的去执行那个showTime函数
+
+	   //在开发中如果要求每间隔一个固定时间后去调用就去精准的执行一个函数,那么最好使用setInterval,如果不想连续调用产生的互相干扰而影响函数执行的结果,可以使用setTimeout
+
+	   //在js中javascript都是以单线程的方式运行在引擎中,setInterval和setTimeout的作用只是把要执行的代码放到一个队列中
+	   //,插入队列中的代码并不意味着马上执行
+
+	   //在执行setInterval时候可能会存在两个问题
+	   //1时间间隔可能或许会跳过
+	   //2.时间间隔可能会小于调用函数执行的时间
+
+
+	   //在项目开发中可以使用setTimeout来模拟实现setInterval
+	   window.onload=function(){
+               var btn=document.getElementById("send_btn"),seconds=60;
+               //点击发送按钮
+               btn.onclick=function(){
+                   send();
+               }
+        //发送验证码方法
+        function send(){
+        	btn.className="send_btn btn_dis";
+            btn.innerHTML=seconds+"s";
+            var timer=setTimeout(arguments.callee,1000);
+            seconds--;
+            if (seconds==0) {
+            	clearTimeout(timer);
+            	 btn.innerHTML="发送验证码";
+            	 btn.className="send_btn btn_vis";
+            }
+        }
+	   }
+
+	</script>
+</head>
+<body>
+	 <span class="send_btn btn_vis" id="send_btn">发送验证码</span>
+</body>
+</html>
