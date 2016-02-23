@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象</title>
+	<script type="text/javascript">
+     var postData=function(opt){
+          var _default={
+          	 elm:opt.elm,
+          	 url:opt.url,
+          	 data:opt.data,
+          	 success:function(){
+                 console.log(this.elem);
+          	 },error:function(){
+                 console.log(this.url);
+          	 }
+          }
+     }
+     postData({
+     	elem:'#test',
+     	url:'www.baidu.com',
+     	data:'张三'
+     })
+	</script>
+</head>
+<body>
+
+	
+</body>
+</html>

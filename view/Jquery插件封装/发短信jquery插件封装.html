@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>发送短信jquery插件封装</title>
+	<style>
+	 #send_btn{
+	 	display:inline-block;
+	 	width: 100px;
+	 	height: 40px;
+	 	font: 16px/40px "黑体";
+	 	background-color:#ffc200;
+	 	text-align: center;
+	 	border-radius:5px;
+	 	color: #fff;
+	 }
+	 
+	</style>
+	<script src="../../js/jquery.js"></script>
+	<script type="text/javascript">
+     $.fn.sendSms=function(cfg){
+     	//jquery的extent方法是将对象合并在一起,extent(dest,src1,src2)将src1,scr2合并到dest对象上,并返回一个新对象,
+     	//extent也可以将用户自定义的方法挂载到jquery对象上
+     	// $.fn.extend({
+     	// 	 showChilk:function(){
+     	// 	 	 $(this).click(function(){
+     	// 	 	 	console.log($(this).innerH);
+     	// 	 	 });
+     	// 	 }
+     	// });
+     	 cfg=$.extend({
+     	 	time:60,//短信验证码时间
+     	 	autoStatr:!0,//自动发送
+     	 	recentText:"重新发送",
+     	 	targe:null
+     	 },cfg);
+     	 //这样是为了防止调用方法时候没有传递参数,这样就可以使用默认的
+     }
+
+     $(function(){
+
+     	
+     	$("#send_btn").click(function(){
+            // $(this).hello();
+     	});
+
+     });
+
+	</script>
+</head>
+<body>
+	 <span id="send_btn">发送验证码</span>
+</body>
+</html>

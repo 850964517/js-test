@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM判断是元素节点</title>
+	<script> 
+      //检查是元素节点
+      var isElement=function(el){
+         return  !!el && el.nodeType===1; //判断元素节点是否存在,并且节点的nodeType是1
+      }
+      window.onload=function(){
+      	 var testDiv=document.getElementById("testDiv");
+      }
+	</script>
+</head>
+<body>
+   <div id="testDiv">
+   	这是一个测试div
+   </div>
+	
+</body>
+</html>

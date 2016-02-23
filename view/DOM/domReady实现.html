@@ -19,7 +19,7 @@
      	  //如果是IE不支持DOMContentLoaded方法,使用一个匿名自执行函数
      	  (function(){
      	  	//这里利用的是IE中的hack,在IE中doScrool方法只有在dom完全加载完毕后才能使用
-     	  	//通过try来判断调用的doScrool方法是否报错,如果报错,通过setTime间隔调用,知道不报错为止
+     	  	//通过try来判断调用的doScrool方法是否报错,如果报错,通过setTime间隔调用,直到不报错为止
      	  	 try{
                 d.documentElement.doScrool('left');
      	  	 }catch(e){

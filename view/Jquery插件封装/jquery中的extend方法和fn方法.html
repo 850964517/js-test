@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquery中的extend方法和fn方法</title>
+	<script  src="../../js/jquery.js"></script>
+	<script>
+	 //jquery为开发插件提供了两个方法,jquery.fn.extend和jquery.extend方法
+     //jquery.fn是在jquery命令空间上面添加方法。加在fn上面的方法会对每一个jquery对象都有可以去调用,
+     //jQuery.fn方法类似于jQuery.prototype,在fn上面添加的方法相当于给js中的Object.prototype上面添加的方法.所以每一个jquery对象都可以去访问
+     // Jquery中的extend方法是编写插件时候的常用方法,官方的解释是(把两个或者更多的对象合并到第一个当中)
+     //语法格式:  $.extend(dest,src1,src2,src3);
+
+     //jQuery.extend(target[object1,objectN])合并object1,objectN到target对象,如果只有一个参数,target对象会合并到jQuery对象上面
+
+     //创建一个obj1对象	
+     var object1={
+     	name:'张三',
+     	age:23,
+     	sayHello:function(){
+     		console.log("hello "+this.name+" I'm "+this.age);
+     	}
+     }
+     //创建objN对象
+     var objectN={
+     	 name:'李四',
+     	 age:24,
+     	 hello:function(){
+     	 	console.log(this);
+     	 }
+     };
+     // object1.sayHello();
+     //如果jquery.extend方法就一个对象的话,会默认把这个对象合并到jquery上面
+     // var testObj=$.extend(object1);
+     // console.log(testObj);//这返回的是一个jquery对象,会默认的把testObj
+     // 语法格式: var newSrc=$.extend(dest,src1,src2,src3...),也就是把 src1,src2,src3对象合并成dest对象
+
+     //如果jquery.extend中有两个对象的话,会合并在一起并返回新对象
+     
+     var testObj=$.extend(object1,objectN,{
+	     	time: 60,
+	        autoStart:!!0,
+	        recentText: "重新发送"
+     })
+    
+    console.log(testObj);//这里会返回一个object1,objectN一起返回的新对象
+    console.log( testObj instanceof Object);
+
+    console.log(testObj.sayHello());//hello 李四 I'm 24,如果两个对象都包含同一个属性,会默认使用后一个对象属性的的值
+    console.log(testObj.hello());// Object指向合并后的对象
+
+
+
+
+    //jQuery.fn.extend(object)方法,对jQuery.prototype进得扩展,就是为jQuery类添加"成员函数"。jQuery类的实例可以使用使用这个函数,使用fn添加方法
+    
+    //文本框点击显示出文本内容
+    $.fn.extend({
+        alertWhildClick:function(){
+        	console.log(this);//jQuery.fn.init[1],说明通过fn.extend
+        	$(this).click(function(){
+        		console.log(this);
+        		console.log($(this));
+        	});
+        }
+
+    });
+    console.log($);
+    //$("#testInput")为一个jQuery实例,当他调用成员方法alertWhildClick方法适合便实现了扩展。
+    //jQuery.extend的调用并不会把方法扩展对对象的实例上,引用它的方法也需要通过jQuery类来实现,如jQuery.init(),extend上面的方法会挂在到jQuery.init()对象的实例上
+    //而jQuery.fn.extend()的调用是把方法扩展到prototype上,所以在实例化一个jQuery对象时候,jQuery对象性的实例就具有了这些方法
+
+    // jQuery.fn.extend=jQuery.prototype.extend,可以扩展一个对象到jQuery的prototype上。jquery中的fn方法和fn.extend方法都是把合并的类添加到jquery的实例上面,也就是jquery.init()方法上
+    (function());
+
+    //调用测试方法
+    $(function(){
+    	 $("#testInput").alertWhildClick();
+    })
+	</script>
+
+</head>
+<body>
+	<input type="text" id="testInput" placeholder="请输入内容">
+</body>
+</html>
