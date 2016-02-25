@@ -8,10 +8,14 @@
 	 //jquery为开发插件提供了两个方法,jquery.fn.extend和jquery.extend方法
      //jquery.fn是在jquery命令空间上面添加方法。加在fn上面的方法会对每一个jquery对象都有可以去调用,
      //jQuery.fn方法类似于jQuery.prototype,在fn上面添加的方法相当于给js中的Object.prototype上面添加的方法.所以每一个jquery对象都可以去访问
+     //jQuery.extend(object);　为jQuery类添加添加类方法，可以理解为添加静态方法
      // Jquery中的extend方法是编写插件时候的常用方法,官方的解释是(把两个或者更多的对象合并到第一个当中)
      //语法格式:  $.extend(dest,src1,src2,src3);
+     //jQuery.fn.extend(object);对jQuery.prototype进得扩展，就是为jQuery类添加“成员函数”。jQuery类的实例可以使用这个“成员函数”。 
 
      //jQuery.extend(target[object1,objectN])合并object1,objectN到target对象,如果只有一个参数,target对象会合并到jQuery对象上面
+
+
 
      //创建一个obj1对象	
      var object1={
@@ -49,6 +53,15 @@
     console.log(testObj.sayHello());//hello 李四 I'm 24,如果两个对象都包含同一个属性,会默认使用后一个对象属性的的值
     console.log(testObj.hello());// Object指向合并后的对象
 
+    $.extend({
+    	job:'web develop',
+     	age:24,
+     	AnleHello:function(){
+     		console.log("hello "+this.job+" I'm "+this.age);
+     	}
+    });
+    $.AnleHello();
+
 
 
 
@@ -65,18 +78,48 @@
         }
 
     });
-    console.log($);
+    // console.log($);
     //$("#testInput")为一个jQuery实例,当他调用成员方法alertWhildClick方法适合便实现了扩展。
     //jQuery.extend的调用并不会把方法扩展对对象的实例上,引用它的方法也需要通过jQuery类来实现,如jQuery.init(),extend上面的方法会挂在到jQuery.init()对象的实例上
     //而jQuery.fn.extend()的调用是把方法扩展到prototype上,所以在实例化一个jQuery对象时候,jQuery对象性的实例就具有了这些方法
 
     // jQuery.fn.extend=jQuery.prototype.extend,可以扩展一个对象到jQuery的prototype上。jquery中的fn方法和fn.extend方法都是把合并的类添加到jquery的实例上面,也就是jquery.init()方法上
-    (function());
+    (function($){
+        $.fn.tooptip=function(){
+            console.log("提示框");
+        }
+        //等价于
+        var tooltip={
+        	 function(){
+                console.log("哈哈");
+        	 }
+        }
+        // $.fn.extend(tooltip)=$.prototype.extend(tooltip)=$.fn.tooltip;
+    })(jQuery);
+    // console.log($);
+    //在jQuery源码中,jQuery.fn=jQuery.prototype,所以挂着到fn上面的方法.会直接添加到jQuery.prototype对象的实例上,所以只要是jQuery对象都会拥有fn上面的方法,$("#testInput")就会产生一个jquery对象
+
+
+
+    //jQuery.extend(object);为jQuery类添加方法,可以理解为添加静态方法
+    $.extend({
+    	add:function(a,b){
+    		  return a+b;
+    	},
+    	minue:function(a,b){
+              return a-b;
+    	}
+    });
+    //通过jQuery.extend添加的类,便为jQuery添加了一个add的"静态"方法,可以直接使用
+    console.log($.add(4,6));//10
+    console.log($.minue(10,5));
+    //可以通过$直接调用,这个这个类被直接挂在到jquery对象上面了
+
 
     //调用测试方法
-    $(function(){
-    	 $("#testInput").alertWhildClick();
-    })
+    // $(function(){
+    // 	 $("#testInput").alertWhildClick();
+    // })
 	</script>
 
 </head>

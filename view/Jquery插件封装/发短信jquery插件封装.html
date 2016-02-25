@@ -46,9 +46,54 @@
 
      });
 
+
+  
+     function a(){
+           var g=10,h=20;
+          return function (){
+                g=30;
+                return g;
+           }
+          return function (){
+               g=40;
+               return g;
+           }
+
+
+     }
+     // console.log();
+   
+     // console.log(a()());
+     //  g=100;
+     // console.log(a()());
+     console.log(a()()());
+
+
+
+
 	</script>
+     <style type="text/css">
+     .content_box{
+          width: 300px;
+          height: 200px;
+          position: fixed;
+          top: 100px;
+          left: 200px;
+          background-color: red;
+     }
+     .content_txt{
+         position: absolute;
+         left: 10px;
+         top: 20px;
+
+     }
+
+     </style>
 </head>
 <body>
 	 <span id="send_btn">发送验证码</span>
+      <div class="content_box">
+             <span class="content_txt">样式测试练习</span>
+      </div>
 </body>
 </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取文本框文字长度</title>
+	<style>
+	 #testInput{
+	 	width: 200px;
+	 	height: 30px;
+	 	font:16px/30px "黑体";
+	 	border:1px solid #ccc;
+	 	border-radius:3px;
+	 	color: #000;
+	 	text-indent: 10px;
+	 }
+	 #input_count{
+	 	font-size: 16px;
+	 	color: #666;
+	 }
+
+	</style>
+	<script src="../../js/jquery.js"></script>
+	<script>
+     //使用作用域隔离
+     var txtCount={
+     	input:null,//文本框触发节点
+     	init:function(config){//初始化控件方法,传入配置参数
+             this.input=$(config.id);//获取触发的控件元素
+             this.bind();//调用控件输入方法
+             return this;//实现链式调用
+     	}, //控件方法
+     	bind:function(){
+             var self=this; //这里的this会指向txtCount对象
+             //给input的框绑定
+             this.input.on('keyup',function(){
+             	 //调用渲染方法
+                 self.render();
+             });
+     	},
+     	//获取文本框文字的长度
+     	getNum:function(){
+     		return this.input.val().length;
+     	},
+     	//渲染元素方法
+     	render:function(){
+     		var num=this.getNum();
+     		//添加元素
+     		if($("#input_count").length==0){
+     		   //添加元素
+               this.input.after('<span id="input_count"></span>');
+     		}
+     		$("#input_count").html(num+"个字");
+     	}
+     };
+     $(function(){
+     	txtCount.init({id:'#testInput'}).render();
+     });
+	</script>
+
+</head>
+<body>
+  <input type="text" id="testInput" placeholder="请输入内容">
+</body>
+</html>
